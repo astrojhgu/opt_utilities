@@ -49,7 +49,7 @@ namespace opt_utilities
   /**
      \brief Implement of the asexual genetic algorithm
      2009A&A...501.1259C
-     http://adsabs.harvard.edu/abs/2009arXiv0905.3712C
+     http://adsabs.harvard.edu/abs/2009A%26A...501.1259C
      \tparam rT return type of the object function
      \tparam pT parameter type of the object function
    */
