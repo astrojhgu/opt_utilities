@@ -1020,6 +1020,8 @@ namespace opt_utilities
     {
       //      this->num_free_params=0;
       param_info_list.clear();
+      //clear the memory
+      std::vector<param_info<Tp,Tstr> >().swap(param_info_list);
     }
 
 
