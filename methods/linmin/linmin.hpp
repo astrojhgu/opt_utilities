@@ -59,7 +59,7 @@ namespace opt_utilities
       //assert(p1.size()==xi1.size());
       
       pT xt;
-      opt_eq(xt,p1);
+      opt_assign(xt,p1);
 #pragma omp parallel for 
       for(size_t i=0;i<get_size(xt);++i)
 	{

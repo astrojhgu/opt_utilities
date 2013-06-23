@@ -103,7 +103,7 @@ namespace opt_utilities
      \return the reference of the left-hand array
    */
   template <typename Tl,typename Tr>
-  inline Tl& opt_eq(Tl& lhs,const Tr& rhs)
+  inline Tl& opt_assign(Tl& lhs,const Tr& rhs)
   {
     return (lhs=rhs);
   }

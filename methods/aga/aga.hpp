@@ -170,7 +170,7 @@ namespace opt_utilities
     
     void do_set_lower_limit(const array1d_type& p)
     {
-      opt_eq(lower_bound,p);
+      opt_assign(lower_bound,p);
     }
 
     array1d_type do_get_lower_limit()const
@@ -180,7 +180,7 @@ namespace opt_utilities
     
     void do_set_upper_limit(const array1d_type& p)
     {
-      opt_eq(upper_bound,p);
+      opt_assign(upper_bound,p);
     }
 
     array1d_type do_get_upper_limit()const

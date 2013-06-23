@@ -59,12 +59,12 @@ namespace opt_utilities
      */
     data(const data& rhs)
     {
-      opt_eq(x,rhs.x);
-      opt_eq(x_lower_err,rhs.x_lower_err);
-      opt_eq(x_upper_err,rhs.x_upper_err);
-      opt_eq(y,rhs.y);
-      opt_eq(y_lower_err,rhs.y_lower_err);
-      opt_eq(y_upper_err,rhs.y_upper_err);
+      opt_assign(x,rhs.x);
+      opt_assign(x_lower_err,rhs.x_lower_err);
+      opt_assign(x_upper_err,rhs.x_upper_err);
+      opt_assign(y,rhs.y);
+      opt_assign(y_lower_err,rhs.y_lower_err);
+      opt_assign(y_upper_err,rhs.y_upper_err);
     }
 
     /**
@@ -80,12 +80,12 @@ namespace opt_utilities
 	 const Ty& _y_lower_err,
 	 const Ty& _y_upper_err,const Tx& _x_lower_err,const Tx& _x_upper_err)
     {
-      opt_eq(x,_x);
-      opt_eq(x_lower_err,_x_lower_err);
-      opt_eq(x_upper_err,_x_upper_err);
-      opt_eq(y,_y);
-      opt_eq(y_lower_err,_y_lower_err);
-      opt_eq(y_upper_err,_y_upper_err);
+      opt_assign(x,_x);
+      opt_assign(x_lower_err,_x_lower_err);
+      opt_assign(x_upper_err,_x_upper_err);
+      opt_assign(y,_y);
+      opt_assign(y_lower_err,_y_lower_err);
+      opt_assign(y_upper_err,_y_upper_err);
  
     }
 
@@ -95,12 +95,12 @@ namespace opt_utilities
      */
     data& operator=(const data& rhs)
     {
-      opt_eq(x,rhs.x);
-      opt_eq(x_lower_err,rhs.x_lower_err);
-      opt_eq(x_upper_err,rhs.x_upper_err);
-      opt_eq(y,rhs.y);
-      opt_eq(y_lower_err,rhs.y_lower_err);
-      opt_eq(y_upper_err,rhs.y_upper_err);
+      opt_assign(x,rhs.x);
+      opt_assign(x_lower_err,rhs.x_lower_err);
+      opt_assign(x_upper_err,rhs.x_upper_err);
+      opt_assign(y,rhs.y);
+      opt_assign(y_lower_err,rhs.y_lower_err);
+      opt_assign(y_upper_err,rhs.y_upper_err);
       return *this;
     }
 
@@ -166,7 +166,7 @@ namespace opt_utilities
 
     void set_x(const Tx& _x)
     {
-      opt_eq(x,_x);
+      opt_assign(x,_x);
     }
     
     /**
@@ -175,7 +175,7 @@ namespace opt_utilities
      */
     void set_x_lower_err(const Tx& _x)
     {
-      opt_eq(x_lower_err,_x);
+      opt_assign(x_lower_err,_x);
     }
     
 
@@ -185,7 +185,7 @@ namespace opt_utilities
      */
     void set_x_upper_err(const Tx& _x)
     {
-      opt_eq(x_upper_err,_x);
+      opt_assign(x_upper_err,_x);
     }
 
 
@@ -195,7 +195,7 @@ namespace opt_utilities
      */
     void set_y(const Ty& _y)
     {
-      opt_eq(y,_y);
+      opt_assign(y,_y);
     }
     
 
@@ -205,7 +205,7 @@ namespace opt_utilities
      */
     void set_y_lower_err(const Ty& _y)
     {
-      opt_eq(y_lower_err,_y);
+      opt_assign(y_lower_err,_y);
     }
     
     /**
@@ -214,7 +214,7 @@ namespace opt_utilities
      */
     void set_y_upper_err(const Ty& _y)
     {
-      opt_eq(y_upper_err,_y);
+      opt_assign(y_upper_err,_y);
     }
     
 
@@ -372,9 +372,9 @@ namespace opt_utilities
     param_info(const param_info& rhs)
       :name(rhs.name),description(rhs.description)
     {
-      opt_eq(value,rhs.value);
-      opt_eq(lower_limit,rhs.lower_limit);
-      opt_eq(upper_limit,rhs.upper_limit);
+      opt_assign(value,rhs.value);
+      opt_assign(lower_limit,rhs.lower_limit);
+      opt_assign(upper_limit,rhs.upper_limit);
     }
 
     /**
@@ -404,9 +404,9 @@ namespace opt_utilities
 	}
       name=rhs.name;
       description=rhs.description;
-      opt_eq(value,rhs.value);
-      opt_eq(lower_limit,rhs.lower_limit);
-      opt_eq(upper_limit,rhs.upper_limit);
+      opt_assign(value,rhs.value);
+      opt_assign(lower_limit,rhs.lower_limit);
+      opt_assign(upper_limit,rhs.upper_limit);
       return *this;
     }
 
@@ -461,7 +461,7 @@ namespace opt_utilities
      */
     void set_value(const typename element_type_trait<Tp>::element_type& x)
     {
-      opt_eq(value,x);
+      opt_assign(value,x);
     }
 
 
@@ -471,7 +471,7 @@ namespace opt_utilities
      */
     void set_lower_limit(const typename element_type_trait<Tp>::element_type& x)
     {
-      opt_eq(lower_limit,x);
+      opt_assign(lower_limit,x);
     }
 
     /**
@@ -480,7 +480,7 @@ namespace opt_utilities
      */
     void set_upper_limit(const typename element_type_trait<Tp>::element_type& x)
     {
-      opt_eq(upper_limit,x);
+      opt_assign(upper_limit,x);
     }
 
     /**
@@ -748,7 +748,7 @@ namespace opt_utilities
       resize(result,param_info_list.size());
       for(size_t i=0;i<param_info_list.size();++i)
 	{
-	  //opt_eq(get_element(result,i),param_info_list[i].get_value());
+	  //opt_assign(get_element(result,i),param_info_list[i].get_value());
 	  set_element(result,i,param_info_list[i].get_value());
 	  //get_element((Tp)result,i);
 	}
@@ -765,7 +765,7 @@ namespace opt_utilities
       resize(result,param_info_list.size());
       for(size_t i=0;i<param_info_list.size();++i)
 	{
-	  //opt_eq(get_element(result,i),param_info_list[i].get_value());
+	  //opt_assign(get_element(result,i),param_info_list[i].get_value());
 	  set_element(result,i,param_info_list[i].get_lower_limit());
 	  //get_element((Tp)result,i);
 	}
@@ -781,7 +781,7 @@ namespace opt_utilities
       resize(result,param_info_list.size());
       for(size_t i=0;i<param_info_list.size();++i)
 	{
-	  //opt_eq(get_element(result,i),param_info_list[i].get_value());
+	  //opt_assign(get_element(result,i),param_info_list[i].get_value());
 	  set_element(result,i,param_info_list[i].get_upper_limit());
 	  //get_element((Tp)result,i);
 	}
@@ -1713,15 +1713,15 @@ namespace opt_utilities
       Tp current_param;
       Tp current_lower_limits;
       Tp current_upper_limits;
-      opt_eq(current_param,p_model->get_all_params());
-      opt_eq(current_lower_limits,p_model->get_all_lower_limits());
-      opt_eq(current_upper_limits,p_model->get_all_upper_limits());
+      opt_assign(current_param,p_model->get_all_params());
+      opt_assign(current_lower_limits,p_model->get_all_lower_limits());
+      opt_assign(current_upper_limits,p_model->get_all_upper_limits());
       Tp start_point;
       Tp upper_limits;
       Tp lower_limits;
-      opt_eq(start_point,p_model->deform_param(current_param));
-      opt_eq(upper_limits,p_model->deform_param(current_upper_limits));
-      opt_eq(lower_limits,p_model->deform_param(current_lower_limits));
+      opt_assign(start_point,p_model->deform_param(current_param));
+      opt_assign(upper_limits,p_model->deform_param(current_upper_limits));
+      opt_assign(lower_limits,p_model->deform_param(current_lower_limits));
 
       //      std::cout<<start_point.size()<<std::endl;
       
@@ -1742,13 +1742,13 @@ namespace opt_utilities
       optengine.set_start_point(start_point);
       
       Tp result;
-      opt_eq(result,optengine.optimize());
+      opt_assign(result,optengine.optimize());
 
       Tp decurrent_param;
-      opt_eq(decurrent_param,p_model->reform_param(result));
+      opt_assign(decurrent_param,p_model->reform_param(result));
       //current_param.resize(decurrent_param.size());
       resize(current_param,get_size(decurrent_param));
-      opt_eq(current_param,decurrent_param);
+      opt_assign(current_param,decurrent_param);
       p_model->set_param_value(current_param);
       //   return current_param;
       return p_model->get_all_params();

@@ -160,7 +160,7 @@ namespace opt_utilities
     void do_set_start_point(const array1d_type& p)
     {
       resize(start_point,get_size(p));
-      opt_eq(start_point,p);
+      opt_assign(start_point,p);
     }
 
     array1d_type do_get_start_point()const
@@ -198,7 +198,7 @@ namespace opt_utilities
       init_xi((int)get_size(start_point));
       
       int iter=100;
-      opt_eq(end_point,start_point);
+      opt_assign(end_point,start_point);
       rT fret;
 #if 0
       for(int i=0;i<get_size(start_point);++i)

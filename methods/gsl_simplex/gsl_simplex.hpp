@@ -95,8 +95,8 @@ namespace opt_utilities
       threshold=rhs.threshold;
       p_fo=rhs.p_fo;
       p_optimizer=rhs.p_optimizer;
-      opt_eq(start_point,rhs.start_point);
-      opt_eq(end_point,rhs.end_point);
+      opt_assign(start_point,rhs.start_point);
+      opt_assign(end_point,rhs.end_point);
     }
     
     opt_method<rT,pT>* do_clone()const
@@ -107,7 +107,7 @@ namespace opt_utilities
     void do_set_start_point(const array1d_type& p)
     {
       start_point.resize(get_size(p));
-      opt_eq(start_point,p);
+      opt_assign(start_point,p);
       
     }
 

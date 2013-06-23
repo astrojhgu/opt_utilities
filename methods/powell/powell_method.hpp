@@ -212,7 +212,7 @@ namespace opt_utilities
     void do_set_start_point(const array1d_type& p)
     {
       resize(start_point,get_size(p));
-      opt_eq(start_point,p);
+      opt_assign(start_point,p);
     }
 
     array1d_type do_get_start_point()const
@@ -259,7 +259,7 @@ namespace opt_utilities
 	}
       
       int iter=100;
-      opt_eq(end_point,start_point);
+      opt_assign(end_point,start_point);
       rT fret;
       powell(end_point,threshold,iter,fret);
       return end_point;

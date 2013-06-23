@@ -21,26 +21,26 @@ namespace opt_utilities
   template <typename T>
   void shft3(T&a,T& b,T& c,T d)
   {
-    opt_eq(a,b);
-    opt_eq(b,c);
-    opt_eq(c,d);
+    opt_assign(a,b);
+    opt_assign(b,c);
+    opt_assign(c,d);
   }
 
   template <typename T>
   void shft(T& a,T& b,T& c,T d)
   {
-    opt_eq(a,b);
-    opt_eq(b,c);
-    opt_eq(c,d);
+    opt_assign(a,b);
+    opt_assign(b,c);
+    opt_assign(c,d);
   }
   //  template <typename T>  
   //  void swap(T& ax,T& bx)
   //{
     //  swap(ax,bx);
     //    T temp;
-    //opt_eq(temp,ax);
-    //opt_eq(ax,bx);
-    //opt_eq(bx,temp);
+    //opt_assign(temp,ax);
+    //opt_assign(ax,bx);
+    //opt_assign(bx,temp);
     //}
   
   template <typename T>
@@ -58,7 +58,7 @@ namespace opt_utilities
   template <typename T>
   void mov3(T& a,T& b,T& c, T& d,T& e,T& f)
   {
-    opt_eq(a,d);opt_eq(b,e);opt_eq(c,f);
+    opt_assign(a,d);opt_assign(b,e);opt_assign(c,f);
   }
 }
 

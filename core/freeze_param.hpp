@@ -104,12 +104,12 @@ namespace opt_utilities
 	      //std::cout<<"frozen:"<<pinf.get_name()
 	      //	       <<i<<"\t"<<j
 	      //       <<std::endl;
-	      //opt_eq(get_element(reformed_p,i),pinf.get_value());
+	      //opt_assign(get_element(reformed_p,i),pinf.get_value());
 	      set_element(reformed_p,i,pinf.get_value());
 	    }
 	  else
 	    {
-	      //opt_eq(get_element(reformed_p,i),get_element(p,j));
+	      //opt_assign(get_element(reformed_p,i),get_element(p,j));
 	      set_element(reformed_p,i,get_element(p,j));
 	      j++;
 	    }
@@ -135,7 +135,7 @@ namespace opt_utilities
 	  //std::cout<<is_frozen(j)<<"\n";
 	  if(!this->is_frozen(i))
 	    {
-	      //opt_eq(get_element(deformed_p,j),get_element(p,i));
+	      //opt_assign(get_element(deformed_p,j),get_element(p,i));
 	      set_element(deformed_p,j,get_element(p,i));
 	      j++;
 	    }
