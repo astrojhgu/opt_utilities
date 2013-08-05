@@ -11,10 +11,10 @@
 using namespace opt_utilities;
 //declear a class derived from func_obj
 class lin1d
-  :public opt_utilities::model<double,double,std::vector<double>,std::string>
+  :public opt_utilities::model<data<double,double>,std::vector<double>,std::string>
   {
   private:
-    model<double,double,std::vector<double> >* do_clone()const
+    model<data<double,double>,std::vector<double> >* do_clone()const
     {
       return new lin1d(*this);
     }
@@ -42,18 +42,18 @@ class lin1d
 
 int main()
 {
-  fitter<double,double,std::vector<double>,double,std::string> f;
+  fitter<data<double,double>,std::vector<double>,double,std::string> f;
   f.set_model(lin1d());
   f.set_opt_method(powell_method<double,std::vector<double> >());
   //f.set_opt_method(aga_method<double,std::vector<double> >());
-  default_data_set<double,double> ds;
+  default_data_set<data<double,double> > ds;
 
   for(int i=0;i<100;++i)
     {
       ds.add_data(data<double,double>(i,i*3+5,.1,.1,0,0));
     }
   f.load_data(ds);
-  f.set_statistic(chisq<double,double,std::vector<double>,double,std::string>());
+  f.set_statistic(chisq<data<double,double>,std::vector<double>,double,std::string>());
   f.fit();
   cout<<f.get_param_value("k")<<endl;
   cout<<f.get_param_value("b")<<endl;

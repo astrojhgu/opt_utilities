@@ -19,10 +19,10 @@ namespace opt_utilities
   
   template <typename T>
   class beta2d2
-    :public model<T,vecn<T,2>,std::vector<T>,std::string>
+    :public model<data<T,vecn<T,2> >,std::vector<T>,std::string>
   {
   private:
-    model<T,vecn<T,2>,std::vector<T> >* do_clone()const
+    model<data<T,vecn<T,2> >,std::vector<T> >* do_clone()const
     {
       return new beta2d2<T>(*this);
     }

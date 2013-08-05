@@ -9,7 +9,7 @@ namespace opt_utilities
 {
   template <typename T>
   class lin1d_estimater
-    :public pre_estimater<T,T,std::vector<T>,std::string>
+    :public pre_estimater<data<T,T>,std::vector<T>,std::string>
   {
   public:
     lin1d_estimater()
@@ -22,7 +22,7 @@ namespace opt_utilities
       return new lin1d_estimater<T>(*this);
     }
 
-    void do_estimate(const data_set<T,T>& d,model<T,T,std::vector<T>,std::string>& m)const
+    void do_estimate(const data_set<T,T>& d,model<data<T,T>,std::vector<T>,std::string>& m)const
     {
       T n=d.size();
       T sy=0;

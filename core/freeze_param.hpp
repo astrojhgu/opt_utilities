@@ -20,10 +20,13 @@ namespace opt_utilities
      \tparam Tp the type of the model parameter
      \tparam Tstr the type of string used
    */
-  template <typename Ty,typename Tx,typename Tp,typename Tstr=std::string>
+  template <typename Tdata,typename Tp,typename Tstr=std::string>
   class freeze_param
-    :public param_modifier<Ty,Tx,Tp,Tstr>
+    :public param_modifier<Tdata,Tp,Tstr>
   {
+  public:
+    typedef typename Tdata::Tx Tx;
+    typedef typename Tdata::Ty Ty;
   private:
     std::set<Tstr> param_names;
     std::vector<size_t> param_num;
@@ -47,9 +50,9 @@ namespace opt_utilities
     }
     
   private:
-    freeze_param<Ty,Tx,Tp,Tstr>* do_clone()const
+    freeze_param<Tdata,Tp,Tstr>* do_clone()const
     {
-      return new freeze_param<Ty,Tx,Tp,Tstr>(*this);
+      return new freeze_param<Tdata,Tp,Tstr>(*this);
     }
     
     
@@ -303,10 +306,10 @@ namespace opt_utilities
      \param name the name to be frozen
      \return the created freeze_param object
    */
-  template <typename Ty,typename Tx,typename Tp,typename Tstr>
-  freeze_param<Ty,Tx,Tp,Tstr> freeze(const Tstr& name)
+  template <typename Tdata,typename Tp,typename Tstr>
+  freeze_param<Tdata,Tp,Tstr> freeze(const Tstr& name)
   {
-    return freeze_param<Ty,Tx,Tp,Tstr>(name);
+    return freeze_param<Tdata,Tp,Tstr>(name);
   }
 
 }

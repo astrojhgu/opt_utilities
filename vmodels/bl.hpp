@@ -15,10 +15,10 @@ namespace opt_utilities
 {
   template <typename T>
   class bl
-    :public model<optvec<T>,optvec<T>,optvec<T>,std::string>
+    :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
   {
   private:
-    model<optvec<T>,optvec<T>,optvec<T>,std::string >* do_clone()const
+    model<data<optvec<T>,optvec<T> >,optvec<T>,std::string >* do_clone()const
     {
       return new bl<T>(*this);
     }

@@ -60,10 +60,13 @@ namespace opt_utilities
   }
 
 
-  template <typename Ty,typename Tx,typename Tp>
+  template <typename Tdata,typename Tp>
   class pymodel
-    :public model<Ty,Tx,Tp,std::string>
+    :public model<Tdata,Tp,std::string>
   {
+  public:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   private:
     boost::python::object pyfunc;
     std::string type_name;
@@ -127,7 +130,7 @@ namespace opt_utilities
 	}
     }
   private:
-    model<Ty,Tx,Tp,std::string>* do_clone()const
+    model<Tdata,Tp,std::string>* do_clone()const
     {
       return new pymodel(*this);
     }

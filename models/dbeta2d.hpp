@@ -18,10 +18,10 @@ namespace opt_utilities
   
   template <typename T>
   class dbeta2d
-    :public model<T,vecn<T,2>,std::vector<T>,std::string>
+    :public model<data<T,vecn<T,2> >,std::vector<T>,std::string>
   {
   private:
-    model<T,vecn<T,2>,std::vector<T> >* do_clone()const
+    model<data<T,vecn<T,2> >,std::vector<T> >* do_clone()const
     {
       return new dbeta2d<T>(*this);
     }

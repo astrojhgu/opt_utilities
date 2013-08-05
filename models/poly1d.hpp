@@ -17,10 +17,10 @@ namespace opt_utilities
 {
   template <typename T,int n>
   class poly1d
-    :public model<T,T,std::vector<T>,std::string>
+    :public model<data<T,T>,std::vector<T>,std::string>
   {
   private:
-    model<T,T,std::vector<T> >* do_clone()const
+    model<data<T,T>,std::vector<T> >* do_clone()const
     {
       return new poly1d<T,n>(*this);
     }

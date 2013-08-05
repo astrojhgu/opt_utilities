@@ -15,8 +15,8 @@ namespace opt_utilities
 {
   template <typename T>
   class dualgauss1d
-    :public model<optvec<T>,optvec<T>,optvec<T>,std::string>
-    ,public pre_estimatable<optvec<T>,optvec<T>,optvec<T>,std::string>
+    :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
+    ,public pre_estimatable<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
   {
   private:
     dualgauss1d* do_clone()const

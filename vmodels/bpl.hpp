@@ -16,7 +16,7 @@ namespace opt_utilities
 {
   template <typename T>
   class bpl1d
-    :public model<optvec<T>,optvec<T>,optvec<T>,std::string>
+    :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
   {
   private:
     bpl1d* do_clone()const

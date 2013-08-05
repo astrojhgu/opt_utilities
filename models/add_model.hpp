@@ -13,14 +13,17 @@
 
 namespace opt_utilities
 {
-  template <typename Ty,typename Tx,typename Tp,typename Tstr>
+  template <typename Tdata,typename Tp,typename Tstr>
   class add_model
-    :public model<Ty,Tx,Tp,Tstr>
+    :public model<Tdata,Tp,Tstr>
   {
+  public:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   private:
-    model<Ty,Tx,Tp,Tstr>* do_clone()const
+    model<Tdata,Tp,Tstr>* do_clone()const
     {
-      return new add_model<Ty,Tx,Tp,Tstr>(*this);
+      return new add_model<Tdata,Tp,Tstr>(*this);
     }
   private:
     add_model()
@@ -28,12 +31,12 @@ namespace opt_utilities
     }
 
   private:
-    model<Ty,Tx,Tp,Tstr>* pm1;
-    model<Ty,Tx,Tp,Tstr>* pm2;
+    model<Tdata,Tp,Tstr>* pm1;
+    model<Tdata,Tp,Tstr>* pm2;
 
   public:
-    add_model(const model<Ty,Tx,Tp,Tstr>& m1,
-	      const model<Ty,Tx,Tp,Tstr>& m2)
+    add_model(const model<Tdata,Tp,Tstr>& m1,
+	      const model<Tdata,Tp,Tstr>& m2)
       :pm1(m1.clone()),pm2(m2.clone())
     {
       int np1=m1.get_num_params();
@@ -169,11 +172,11 @@ namespace opt_utilities
     }
   };
   
-  template <typename Ty,typename Tx,typename Tp,typename Tstr>
-  add_model<Ty,Tx,Tp,Tstr> operator+(const model<Ty,Tx,Tp,Tstr>& m1,
-				     const model<Ty,Tx,Tp,Tstr>& m2)
+  template <typename Tdata,typename Tp,typename Tstr>
+  add_model<Tdata,Tp,Tstr> operator+(const model<Tdata,Tp,Tstr>& m1,
+				     const model<Tdata,Tp,Tstr>& m2)
   {
-    return add_model<Ty,Tx,Tp,Tstr>(m1,m2);
+    return add_model<Tdata,Tp,Tstr>(m1,m2);
   }
 }
 

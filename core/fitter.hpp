@@ -22,21 +22,23 @@ namespace opt_utilities
   //////class data///////////////////
   //////contain single data point////
   ///////////////////////////////////
-  template<typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
+  template<typename Tdata,typename Tp,typename Ts,typename Tstr>
   class statistic;
 
-  template<typename Ty,typename Tx,typename Tp,typename Tstr>
+  template<typename Tdata,typename Tp,typename Tstr>
   class param_modifier;
-
 
   /**
      \brief representing a single data point
      \tparam Ty the type of y
      \tparam Tx the type of x
    */
-  template<typename Ty,typename Tx>
+  template<typename _Ty,typename _Tx>
   class data
   {
+  public:
+    typedef _Ty Ty;
+    typedef _Tx Tx;
   private:
     Tx x,x_lower_err,x_upper_err;
     Ty y,y_lower_err,y_upper_err;
@@ -59,12 +61,12 @@ namespace opt_utilities
      */
     data(const data& rhs)
     {
-      opt_assign(x,rhs.x);
-      opt_assign(x_lower_err,rhs.x_lower_err);
-      opt_assign(x_upper_err,rhs.x_upper_err);
-      opt_assign(y,rhs.y);
-      opt_assign(y_lower_err,rhs.y_lower_err);
-      opt_assign(y_upper_err,rhs.y_upper_err);
+      opt_assign(x,rhs.get_x());
+      opt_assign(x_lower_err,rhs.get_x_lower_err());
+      opt_assign(x_upper_err,rhs.get_x_upper_err());
+      opt_assign(y,rhs.get_y());
+      opt_assign(y_lower_err,rhs.get_y_lower_err());
+      opt_assign(y_upper_err,rhs.get_y_upper_err());
     }
 
     /**
@@ -86,23 +88,28 @@ namespace opt_utilities
       opt_assign(y,_y);
       opt_assign(y_lower_err,_y_lower_err);
       opt_assign(y_upper_err,_y_upper_err);
- 
     }
 
 
     /**
        Assignment operator
      */
-    data& operator=(const data& rhs)
+    virtual data& operator=(const data& rhs)
     {
-      opt_assign(x,rhs.x);
-      opt_assign(x_lower_err,rhs.x_lower_err);
-      opt_assign(x_upper_err,rhs.x_upper_err);
-      opt_assign(y,rhs.y);
-      opt_assign(y_lower_err,rhs.y_lower_err);
-      opt_assign(y_upper_err,rhs.y_upper_err);
+      opt_assign(x,rhs.get_x());
+      opt_assign(x_lower_err,rhs.get_x_lower_err());
+      opt_assign(x_upper_err,rhs.get_x_upper_err());
+      opt_assign(y,rhs.get_y());
+      opt_assign(y_lower_err,rhs.get_y_lower_err());
+      opt_assign(y_upper_err,rhs.get_y_upper_err());
       return *this;
     }
+
+    /**
+       destruct
+     */
+    virtual ~data()
+    {}
 
   public:
     //get functions
@@ -225,19 +232,22 @@ namespace opt_utilities
      \tparam Ty type of y
      \tparam Tx type of x
    */  
-  template <typename Ty,typename Tx>
+  template <typename Tdata>
   class data_set
   {
+  public:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   private:
-    virtual const data<Ty,Tx>& do_get_data(size_t i)const=0;
-    virtual void do_set_data(size_t i,const data<Ty,Tx>& d)
+    virtual const Tdata& do_get_data(size_t i)const=0;
+    virtual void do_set_data(size_t i,const Tdata& d)
     {
       throw data_unsetable();
     }
     virtual size_t do_size()const=0;
-    virtual void do_add_data(const data<Ty,Tx>&)=0;
+    virtual void do_add_data(const Tdata&)=0;
     virtual void do_clear()=0;
-    virtual data_set<Ty,Tx>* do_clone()const=0;
+    virtual data_set<Tdata>* do_clone()const=0;
     /**
        \return the type name of self
      */
@@ -263,7 +273,7 @@ namespace opt_utilities
        clone self
        \return a clone of self
      */
-    data_set<Ty,Tx>* clone()const
+    data_set<Tdata>* clone()const
     {
       return this->do_clone();
     }
@@ -289,7 +299,7 @@ namespace opt_utilities
        \param i the order of the data point
        \return the const reference of a class data point
      */
-    const data<Ty,Tx>& get_data(size_t i)const
+    const Tdata& get_data(size_t i)const
     {
       return this->do_get_data(i);
     }
@@ -314,7 +324,7 @@ namespace opt_utilities
   public:
     //set functions
 
-    void set_data(size_t i,const data<Ty,Tx>& d)
+    void set_data(size_t i,const Tdata& d)
     {
       do_set_data(i,d);
     }
@@ -323,7 +333,7 @@ namespace opt_utilities
        add data point
        \param d data point
      */
-    void add_data(const data<Ty,Tx>& d)
+    void add_data(const Tdata& d)
     {
       return do_add_data(d);
     }
@@ -515,14 +525,17 @@ namespace opt_utilities
      \tparam Tp the type of the model param
      \tparam Tstr the type of the string used
    */
-  template <typename Ty,typename Tx,typename Tp,typename Tstr=std::string>
+  template <typename Tdata,typename Tp,typename Tstr=std::string>
   class model
   {
+  public:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   private:
     std::vector<param_info<Tp,Tstr> > param_info_list;
     param_info<Tp,Tstr> null_param;
     //    int num_free_params;
-    param_modifier<Ty,Tx,Tp,Tstr>* p_param_modifier;
+    param_modifier<Tdata,Tp,Tstr>* p_param_modifier;
   private:
     /**
        Clone self, 
@@ -531,7 +544,7 @@ namespace opt_utilities
        \return a point to the cloned instance
      */
     
-    virtual model<Ty,Tx,Tp,Tstr>* do_clone()const=0;
+    virtual model<Tdata,Tp,Tstr>* do_clone()const=0;
 
     /**
        Destroy the cloned instance
@@ -640,7 +653,7 @@ namespace opt_utilities
     /**
        \return the cloned object
      */
-    model<Ty,Tx,Tp,Tstr>* clone()const
+    model<Tdata,Tp,Tstr>* clone()const
     {
       return do_clone();
     }
@@ -671,7 +684,7 @@ namespace opt_utilities
     /**
        \return the param_modifier
      */
-    param_modifier<Ty,Tx,Tp,Tstr>& get_param_modifier()
+    param_modifier<Tdata,Tp,Tstr>& get_param_modifier()
     {
       if(p_param_modifier==NULL_PTR)
 	{
@@ -683,7 +696,7 @@ namespace opt_utilities
     /**
        \return the param_modifier
     */
-    const param_modifier<Ty,Tx,Tp,Tstr>& get_param_modifier()const
+    const param_modifier<Tdata,Tp,Tstr>& get_param_modifier()const
     {
       if(p_param_modifier==NULL_PTR)
 	{
@@ -852,7 +865,7 @@ namespace opt_utilities
        set the param modifier
        \param pm param modifier
      */
-    void set_param_modifier(const param_modifier<Ty,Tx,Tp,Tstr>& pm)
+    void set_param_modifier(const param_modifier<Tdata,Tp,Tstr>& pm)
     {
       if(p_param_modifier!=NULL_PTR)
 	{
@@ -1093,13 +1106,16 @@ namespace opt_utilities
      \tparam Ts statistic type
      \tparam Tstr the type of string used
    */
-  template<typename Ty,typename Tx,typename Tp,typename Ts=Ty,typename Tstr=std::string>
+  template<typename Tdata,typename Tp,typename Ts,typename Tstr=std::string>
   class fitter
   {
+  public:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   private:
-    model<Ty,Tx,Tp,Tstr>* p_model;
-    statistic<Ty,Tx,Tp,Ts,Tstr>* p_statistic;
-    data_set<Ty,Tx>* p_data_set;
+    model<Tdata,Tp,Tstr>* p_model;
+    statistic<Tdata,Tp,Ts,Tstr>* p_statistic;
+    data_set<Tdata>* p_data_set;
     optimizer<Ts,Tp> optengine;
   public:
     
@@ -1219,7 +1235,7 @@ namespace opt_utilities
        get the data set that have been loaded
        \return the const reference of inner data_set
     */
-    data_set<Ty,Tx>& get_data_set()
+    data_set<Tdata>& get_data_set()
     {
       if(p_data_set==NULL_PTR)
 	{
@@ -1233,7 +1249,7 @@ namespace opt_utilities
        get the data set that have been loaded
        \return the const reference of inner data_set
      */
-    const data_set<Ty,Tx>& get_data_set()const
+    const data_set<Tdata>& get_data_set()const
     {
       if(p_data_set==NULL_PTR)
 	{
@@ -1246,7 +1262,7 @@ namespace opt_utilities
        Get the model used
        \return the reference of model used
      */
-    model<Ty,Tx,Tp,Tstr>& get_model()
+    model<Tdata,Tp,Tstr>& get_model()
     {
       if(p_model==NULL_PTR)
 	{
@@ -1259,7 +1275,7 @@ namespace opt_utilities
        Get the model used
        \return the reference of model used
     */
-    const model<Ty,Tx,Tp,Tstr>& get_model()const
+    const model<Tdata,Tp,Tstr>& get_model()const
     {
       if(p_model==NULL_PTR)
 	{
@@ -1272,7 +1288,7 @@ namespace opt_utilities
        Get the statistic used
        \return the reference of the statistic used
      */
-    statistic<Ty,Tx,Tp,Ts,Tstr>& get_statistic()
+    statistic<Tdata,Tp,Ts,Tstr>& get_statistic()
     {
       if(p_statistic==NULL_PTR)
 	{
@@ -1285,7 +1301,7 @@ namespace opt_utilities
        Get the statistic used
        \return the reference of the statistic used
      */
-    const statistic<Ty,Tx,Tp,Ts,Tstr>& get_statistic()const
+    const statistic<Tdata,Tp,Ts,Tstr>& get_statistic()const
     {
       if(p_statistic==NULL_PTR)
 	{
@@ -1326,7 +1342,7 @@ namespace opt_utilities
        Get the inner kept param modifier
        \return the reference of param_modifier
     */
-    param_modifier<Ty,Tx,Tp,Tstr>& get_param_modifier()
+    param_modifier<Tdata,Tp,Tstr>& get_param_modifier()
     {
       if(p_model==NULL_PTR)
 	{
@@ -1339,7 +1355,7 @@ namespace opt_utilities
        Get the inner kept param modifier
        \return the reference of param_modifier
      */
-    const param_modifier<Ty,Tx,Tp,Tstr>& get_param_modifier()const
+    const param_modifier<Tdata,Tp,Tstr>& get_param_modifier()const
     {
       if(p_model==NULL_PTR)
 	{
@@ -1482,7 +1498,7 @@ namespace opt_utilities
        set the model
        \param m model to be used
      */
-    void set_model(const model<Ty,Tx,Tp,Tstr>& m)
+    void set_model(const model<Tdata,Tp,Tstr>& m)
     {
       if(p_model!=NULL_PTR)
 	{
@@ -1499,7 +1515,7 @@ namespace opt_utilities
        set the statistic (e.g., chi square, least square c-statistic etc.)
        \param s statistic to be used
      */
-    void set_statistic(const statistic<Ty,Tx,Tp,Ts,Tstr>& s)
+    void set_statistic(const statistic<Tdata,Tp,Ts,Tstr>& s)
     {
       if(p_statistic!=NULL_PTR)
 	{
@@ -1515,7 +1531,7 @@ namespace opt_utilities
        set parameter modifier
        \param pm parameter modifier to be used
      */
-    void set_param_modifier(const param_modifier<Ty,Tx,Tp,Tstr>& pm)
+    void set_param_modifier(const param_modifier<Tdata,Tp,Tstr>& pm)
     {
       if(p_model==NULL_PTR)
 	{
@@ -1540,7 +1556,7 @@ namespace opt_utilities
        load the data set
        \param da a data set
     */
-    void load_data(const data_set<Ty,Tx>& da)
+    void load_data(const data_set<Tdata>& da)
     {
       if(p_data_set!=NULL_PTR)
 	{
@@ -1558,7 +1574,7 @@ namespace opt_utilities
        Same as load_data
        \param da the data to be set
      */
-    void set_data_set(const data_set<Ty,Tx>& da)
+    void set_data_set(const data_set<Tdata>& da)
     {
       load_data(da);
     }
@@ -1773,15 +1789,18 @@ namespace opt_utilities
      \tparam Ts statistic type
      \tparam Tstr the type of string used
   */
-  template<typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr=std::string>
+  template<typename Tdata,typename Tp,typename Ts,typename Tstr=std::string>
   class statistic
     :public func_obj<Ts,Tp>
   {
+  public:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   private:
-    fitter<Ty,Tx,Tp,Ts,Tstr>* p_fitter;
+    fitter<Tdata,Tp,Ts,Tstr>* p_fitter;
 
   private:
-    virtual statistic<Ty,Tx,Tp,Ts,Tstr>* do_clone()const=0;
+    virtual statistic<Tdata,Tp,Ts,Tstr>* do_clone()const=0;
 
     virtual void do_destroy()
     {
@@ -1839,7 +1858,7 @@ namespace opt_utilities
        clone the existing object
        \return the clone of self
      */
-    statistic<Ty,Tx,Tp,Ts,Tstr>* clone()const
+    statistic<Tdata,Tp,Ts,Tstr>* clone()const
     {
       return this->do_clone();
     }
@@ -1865,7 +1884,7 @@ namespace opt_utilities
        set the fitter
        \param pfitter the fitter to be linked
     */
-    virtual void set_fitter(fitter<Ty,Tx,Tp,Ts,Tstr>& pfitter)
+    virtual void set_fitter(fitter<Tdata,Tp,Ts,Tstr>& pfitter)
     {
       p_fitter=&pfitter;
     }
@@ -1875,7 +1894,7 @@ namespace opt_utilities
        get the attached fitter
        \return the const reference of the fitter object
      */
-    virtual const fitter<Ty,Tx,Tp,Ts,Tstr>& get_fitter()const
+    virtual const fitter<Tdata,Tp,Ts,Tstr>& get_fitter()const
     {
       if(p_fitter==NULL_PTR)
 	{
@@ -1903,7 +1922,7 @@ namespace opt_utilities
        get the data_set object managed by the fitter object
        \return the const reference of the data_set object
      */
-    const data_set<Ty,Tx>& get_data_set()const
+    const data_set<Tdata>& get_data_set()const
     {
       if(p_fitter==NULL_PTR)
 	{
@@ -1922,11 +1941,11 @@ namespace opt_utilities
      \tparam Tp the type of the model param
      \tparam Tstr the type of string used
   */
-  template <typename Ty,typename Tx,typename Tp,typename Tstr=std::string>
+  template <typename Tdata,typename Tp,typename Tstr=std::string>
   class param_modifier
   {
   private:
-    model<Ty,Tx,Tp,Tstr>* p_model;
+    model<Tdata,Tp,Tstr>* p_model;
   private:
     /**
        \return the type name of self
@@ -1953,7 +1972,7 @@ namespace opt_utilities
     virtual Tstr do_report_param_status(const Tstr&)const=0;
     virtual void update(){}
 
-    virtual param_modifier<Ty,Tx,Tp,Tstr>* do_clone()const=0;
+    virtual param_modifier<Tdata,Tp,Tstr>* do_clone()const=0;
     
     virtual void do_destroy()
     {
@@ -1997,7 +2016,7 @@ namespace opt_utilities
        return the clone of self
        \return the clone of self
      */
-    param_modifier<Ty,Tx,Tp,Tstr>* clone()const
+    param_modifier<Tdata,Tp,Tstr>* clone()const
     {
       return do_clone();
     }
@@ -2042,7 +2061,7 @@ namespace opt_utilities
        Attach the fitter object
        \param pf the fitter to be attached
      */
-    void set_model(model<Ty,Tx,Tp,Tstr>& pf)
+    void set_model(model<Tdata,Tp,Tstr>& pf)
     {
       p_model=&pf;
       update();
@@ -2052,7 +2071,7 @@ namespace opt_utilities
        get the model attached
        \return the const reference of the model
      */
-    const model<Ty,Tx,Tp,Tstr>& get_model()const
+    const model<Tdata,Tp,Tstr>& get_model()const
     {
       if(p_model==NULL_PTR)
 	{

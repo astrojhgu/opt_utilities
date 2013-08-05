@@ -9,7 +9,7 @@ namespace opt_utilities
 {
   template <typename T>
   class dualgauss1d_estimater
-    :public pre_estimater<optvec<T>,optvec<T>,optvec<T>,std::string>
+    :public pre_estimater<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
   {
   public:
     dualgauss1d_estimater()
@@ -22,7 +22,7 @@ namespace opt_utilities
       return new dualgauss1d_estimater<T>(*this);
     }
 
-    void do_estimate(const data_set<optvec<T>,optvec<T> >& d,model<optvec<T>,optvec<T>,optvec<T>,std::string>& m)const
+    void do_estimate(const data_set<data<optvec<T>,optvec<T> > >& d,model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>& m)const
     {
       int n=d.size();
 

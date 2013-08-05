@@ -33,11 +33,10 @@ namespace opt_utilities
   }_dl_init;
 
 
-  template <typename Ty,
-	    typename Tx,
+  template <typename Tdata,
 	    typename Tp,
 	    typename Tstr>
-  model<Ty,Tx,Tp,Tstr>* load_model(const char* fname)
+  model<Tdata,Tp,Tstr>* load_model(const char* fname)
   {
     lt_dlhandle handle;
     handle=lt_dlopen(fname);
@@ -47,9 +46,9 @@ namespace opt_utilities
       }
     
     
-    model<Ty,Tx,Tp,Tstr>* (*func_create)();
+    model<Tdata,Tp,Tstr>* (*func_create)();
     
-    func_create=(model<Ty,Tx,Tp,Tstr>* (*)())lt_dlsym(handle,"create_model_object");
+    func_create=(model<Tdata,Tp,Tstr>* (*)())lt_dlsym(handle,"create_model_object");
     
     if(!func_create)
       {
@@ -108,12 +107,11 @@ namespace opt_utilities
     return func_create();
   }
 
-  template <typename Ty,
-	    typename Tx,
+  template <typename Tdata,
 	    typename Tp,
 	    typename Ts,
 	    typename Tstr>
-  statistic<Ty,Tx,Tp,Ts,Tstr>* load_statistic(const char* fname)
+  statistic<Tdata,Tp,Ts,Tstr>* load_statistic(const char* fname)
   {
     lt_dlhandle handle;
     
@@ -125,9 +123,9 @@ namespace opt_utilities
       }
     
     
-    statistic<Ty,Tx,Tp,Ts,Tstr>* (*func_create)();
+    statistic<Tdata,Tp,Ts,Tstr>* (*func_create)();
     
-    func_create=(statistic<Ty,Tx,Tp,Ts,Tstr>* (*)())lt_dlsym(handle,"create_statistic_object");
+    func_create=(statistic<Tdata,Tp,Ts,Tstr>* (*)())lt_dlsym(handle,"create_statistic_object");
     
     if(!func_create)
       {

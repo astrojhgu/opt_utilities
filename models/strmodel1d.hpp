@@ -17,7 +17,7 @@
 #include <string>
 
 class strmodel1d
-  :public opt_utilities::model<double,double,std::vector<double>,std::string>
+  :public opt_utilities::model<data<double,double>,std::vector<double>,std::string>
 {
 private:
   mu::Parser mp;

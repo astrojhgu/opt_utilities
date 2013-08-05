@@ -16,11 +16,11 @@
 
 namespace opt_utilities
 {
-  template <typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
-  typename element_type_trait<Tp>::element_type estimate_error_hessian(fitter<Ty,Tx,Tp,Ts>& fit,const Tstr& pname,const Ts& dchi)
+  template <typename Tdata,typename Tp,typename Ts,typename Tstr>
+  typename element_type_trait<Tp>::element_type estimate_error_hessian(fitter<Tdata,Tp,Ts>& fit,const Tstr& pname,const Ts& dchi)
   {
     size_t porder=fit.get_param_order(pname);
-    holder<param_modifier<Ty,Tx,Tp,Tstr> > h;
+    holder<param_modifier<Tdata,Tp,Tstr> > h;
     try
       {
 	h.reset(fit.get_param_modifier().clone());
@@ -50,8 +50,8 @@ namespace opt_utilities
      \param dchi the delta statistic corresponding to a certain confidence level
      \param precision determine how precise the error bounds should be determined
    */
-  template <typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
-  void estimate_error_directly(fitter<Ty,Tx,Tp,Ts>& fit,const Tstr& pname,typename element_type_trait<Tp>::element_type& lower,typename element_type_trait<Tp>::element_type& upper,const Ts& dchi,const Ts& precision)
+  template <typename Tdata,typename Tp,typename Ts,typename Tstr>
+  void estimate_error_directly(fitter<Tdata,Tp,Ts>& fit,const Tstr& pname,typename element_type_trait<Tp>::element_type& lower,typename element_type_trait<Tp>::element_type& upper,const Ts& dchi,const Ts& precision)
   {
     typedef typename element_type_trait<Tp>::element_type Tpe;
     std::vector<Tstr> pnames;
@@ -71,16 +71,16 @@ namespace opt_utilities
       }
     try
       {
-	freeze_param<Ty,Tx,Tp,Tstr>* pfp=dynamic_cast<freeze_param<Ty,Tx,Tp,Tstr>*>(&fit.get_param_modifier());
+	freeze_param<Tdata,Tp,Tstr>* pfp=dynamic_cast<freeze_param<Tdata,Tp,Tstr>*>(&fit.get_param_modifier());
 	if(pfp==0)
 	  {
 	    assert(0);
 	  }
-	*pfp+=freeze_param<Ty,Tx,Tp,Tstr>(pname);
+	*pfp+=freeze_param<Tdata,Tp,Tstr>(pname);
       }
     catch(const param_modifier_not_defined&)
       {
-	fit.set_param_modifier(freeze_param<Ty,Tx,Tp,Tstr>(pname));
+	fit.set_param_modifier(freeze_param<Tdata,Tp,Tstr>(pname));
       }
     //get current statistic value
     Tpe current_value=
@@ -193,7 +193,7 @@ namespace opt_utilities
 	  }
       }
     //restore the param_modifier
-    dynamic_cast<freeze_param<Ty,Tx,Tp,Tstr>& >(fit.get_param_modifier())-=freeze_param<Ty,Tx,Tp,Tstr>(pname);
+    dynamic_cast<freeze_param<Tdata,Tp,Tstr>& >(fit.get_param_modifier())-=freeze_param<Tdata,Tp,Tstr>(pname);
     //restore the origin param values
     for(size_t i=0;i<fit.get_num_params();++i)
       {
@@ -203,8 +203,8 @@ namespace opt_utilities
     fit.fit();
   }
 
-  template <typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
-  void estimate_error(fitter<Ty,Tx,Tp,Ts>& fit,const Tstr& pname,typename element_type_trait<Tp>::element_type& lower,typename element_type_trait<Tp>::element_type& upper,const Ts& dchi,const Ts& precision)
+  template <typename Tdata,typename Tp,typename Ts,typename Tstr>
+  void estimate_error(fitter<Tdata,Tp,Ts>& fit,const Tstr& pname,typename element_type_trait<Tp>::element_type& lower,typename element_type_trait<Tp>::element_type& upper,const Ts& dchi,const Ts& precision)
   {
     typename element_type_trait<Tp>::element_type e=estimate_error_hessian(fit,pname,dchi);
     lower=fit.get_param_value(pname)-e*2;

@@ -152,7 +152,7 @@ extern "C"
 	return 1;
       }
     //  cout<<x[0]<<endl;
-    default_data_set<double,double> ds;
+    default_data_set<data<double,double> > ds;
     for(int i=0;i<ndatas;++i)
       {
 	data<double,double> d(x[i],y[i],yl[i],(yu==0?yl[i]:yu[i]),(xl==0?0:xl[i]),(xu==0?0:xu[i]));
@@ -176,7 +176,7 @@ extern "C"
       }
     try
       {
-	const dopt::model* p(opt_utilities::get_model<double,double,std::vector<double>,std::string>(model_name));
+	const dopt::model* p(opt_utilities::get_model<data<double,double>,std::vector<double>,std::string>(model_name));
 	iter->second.fit.set_model(*p);
 	return 0;
       }
@@ -211,10 +211,10 @@ extern "C"
       {
 	return 1;
       }
-    opt_utilities::freeze_param<double,double,std::vector<double> > fp(pname);
+    opt_utilities::freeze_param<data<double,double>,std::vector<double> > fp(pname);
     try
       {
-	dynamic_cast<opt_utilities::freeze_param<double,double,vector<double> >& >(iter->second.fit.get_param_modifier())+=fp;
+	dynamic_cast<opt_utilities::freeze_param<data<double,double>,vector<double> >& >(iter->second.fit.get_param_modifier())+=fp;
 	return 0;
       }
     catch(opt_exception& e)
@@ -234,10 +234,10 @@ extern "C"
       {
 	return 1;
       }
-    opt_utilities::freeze_param<double,double,std::vector<double> > fp(pname);
+    opt_utilities::freeze_param<data<double,double>,std::vector<double> > fp(pname);
     try
       {
-	dynamic_cast<opt_utilities::freeze_param<double,double,vector<double> >& >(iter->second.fit.get_param_modifier())-=fp;
+	dynamic_cast<opt_utilities::freeze_param<data<double,double>,vector<double> >& >(iter->second.fit.get_param_modifier())-=fp;
       }
     catch(opt_exception& e)
       {

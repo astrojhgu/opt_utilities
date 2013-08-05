@@ -17,7 +17,7 @@ namespace opt_utilities
 {
   template <typename T>
   class normed_gauss1d
-    :public model<optvec<T>,optvec<T>,optvec<T>,std::string>
+    :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
   {
   private:
     normed_gauss1d* do_clone()const

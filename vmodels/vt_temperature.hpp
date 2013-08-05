@@ -10,7 +10,7 @@ using namespace std;
 using namespace opt_utilities;
 template <typename T>
 class vk_temperature
-  :public model<optvec<T>,optvec<T>,optvec<T>,std::string>
+  :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
 {
 private:
   vk_temperature<T>* do_clone()const

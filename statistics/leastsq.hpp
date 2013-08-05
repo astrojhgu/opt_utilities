@@ -25,19 +25,20 @@ namespace opt_utilities
       \tparam Ts the type of the statistic
       \tparam Tstr the type of the string used
    */
-  template<typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
+  template<typename Tdata,typename Tp,typename Ts,typename Tstr>
   class leastsq
-    :public statistic<Ty,Tx,Tp,Ts,Tstr>
+    :public statistic<Tdata,Tp,Ts,Tstr>
   {
   private:
     bool verb;
     int n;
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
     
-    
-    statistic<Ty,Tx,Tp,Ts,Tstr>* do_clone()const
+    statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
     {
       // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new leastsq<Ty,Tx,Tp,Ts,Tstr>(*this);
+      return new leastsq<Tdata,Tp,Ts,Tstr>(*this);
     }
 
     const char* do_get_type_name()const
@@ -87,8 +88,8 @@ namespace opt_utilities
   };
 
   template<typename T,typename Ts,typename Tstr>
-  class leastsq<optvec<T>,optvec<T>,optvec<T>,Ts,Tstr>
-    :public statistic<optvec<T>,optvec<T>,optvec<T>,Ts,Tstr>
+  class leastsq<data<optvec<T>,optvec<T> >,optvec<T>,Ts,Tstr>
+    :public statistic<data<optvec<T>,optvec<T> >,optvec<T>,Ts,Tstr>
   {
   private:
     bool verb;
@@ -97,10 +98,10 @@ namespace opt_utilities
     typedef optvec<T> Tx;
     typedef optvec<T> Ty;
     typedef optvec<T> Tp;
-    statistic<Ty,Tx,Tp,Ts,Tstr>* do_clone()const
+    statistic<data<optvec<T>,optvec<T> >,Tp,Ts,Tstr>* do_clone()const
     {
       // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new leastsq<Ty,Tx,Tp,Ts,Tstr>(*this);
+      return new leastsq<data<optvec<T>,optvec<T> >,Tp,Ts,Tstr>(*this);
     }
 
     const char* do_get_type_name()const

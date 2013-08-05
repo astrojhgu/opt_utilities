@@ -16,7 +16,7 @@ namespace opt_utilities
 {
   template <typename T>
   class quad_pl
-    :public model<optvec<T>,optvec<T>,optvec<T>,std::string>
+    :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
   {
   private:
     quad_pl* do_clone()const

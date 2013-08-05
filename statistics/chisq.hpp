@@ -25,19 +25,22 @@ namespace opt_utilities
      \tparam Ts the type of the statistic
      \tparam Tstr the type of the string used
    */
-  template<typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
+  template<typename Tdata,typename Tp,typename Ts,typename Tstr>
   class chisq
-    :public statistic<Ty,Tx,Tp,Ts,Tstr>
+    :public statistic<Tdata,Tp,Ts,Tstr>
   {
+  public:
+    typedef typename Tdata::Tx Tx;
+    typedef typename Tdata::Ty Ty;
   private:
     bool verb;
     int n;
     
     
-    statistic<Ty,Tx,Tp,Ts,Tstr>* do_clone()const
+    statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
     {
       // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new chisq<Ty,Tx,Tp,Ts,Tstr>(*this);
+      return new chisq<Tdata,Tp,Ts,Tstr>(*this);
     }
 
     const char* do_get_type_name()const
@@ -89,8 +92,8 @@ namespace opt_utilities
 #if 1
 
   template<>
-  class chisq<double,double,std::vector<double>,double,std::string>
-    :public statistic<double,double,std::vector<double> ,double,std::string>
+  class chisq<data<double,double>,std::vector<double>,double,std::string>
+    :public statistic<data<double,double>,std::vector<double> ,double,std::string>
   {
   public:
     typedef double Ty;
@@ -98,14 +101,15 @@ namespace opt_utilities
     typedef std::vector<double> Tp;
     typedef double Ts;
     typedef std::string Tstr;
+    typedef data<double,double> Tdata;
   private:
     bool verb;
     int n;
     
-    statistic<Ty,Tx,Tp,Ts,Tstr>* do_clone()const
+    statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
     {
       // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new chisq<Ty,Tx,Tp,Ts,Tstr>(*this);
+      return new chisq<Tdata,Tp,Ts,Tstr>(*this);
     }
 
     const char* do_get_type_name()const
@@ -211,8 +215,8 @@ namespace opt_utilities
 #endif
 
   template<typename T,typename Ts,typename Tstr>
-  class chisq<optvec<T>,optvec<T>,optvec<T>,Ts,Tstr>
-    :public statistic<optvec<T>,optvec<T>,optvec<T>,Ts,Tstr>
+  class chisq<data<optvec<T>,optvec<T> >,optvec<T>,Ts,Tstr>
+    :public statistic<data<optvec<T>,optvec<T> >,optvec<T>,Ts,Tstr>
   {
   private:
     bool verb;
@@ -221,10 +225,11 @@ namespace opt_utilities
     typedef optvec<T> Tx;
     typedef optvec<T> Ty;
     typedef optvec<T> Tp;
-    statistic<Ty,Tx,Tp,Ts,Tstr>* do_clone()const
+    typedef data<optvec<T>,optvec<T> > Tdata;
+    statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
     {
       // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new chisq<Ty,Tx,Tp,Ts,Tstr>(*this);
+      return new chisq<Tdata,Tp,Ts,Tstr>(*this);
     }
 
     const char* do_get_type_name()const

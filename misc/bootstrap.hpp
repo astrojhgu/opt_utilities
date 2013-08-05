@@ -41,17 +41,19 @@ namespace opt_utilities
      \tparam Ts the type of statistic
      \tparam Tstr the type of string used
    */
-  template <typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr=std::string>
+  template <typename Tdata,typename Tp,typename Ts,typename Tstr=std::string>
   class bootstrap
   {
   private:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   public:
     typedef typename std::list<Tp>::const_iterator param_iterator;
   public:
     std::list<Tp> param_pool;
-    default_data_set<Ty,Tx> current_data_set;
-    default_data_set<Ty,Tx> origin_data_set;
-    fitter<Ty,Tx,Tp,Ts,Tstr>* p_fitter;
+    default_data_set<Tdata> current_data_set;
+    default_data_set<Tdata> origin_data_set;
+    fitter<Tdata,Tp,Ts,Tstr>* p_fitter;
     Tp origin_param;
     mutable bool bstop;
     
@@ -77,11 +79,11 @@ namespace opt_utilities
        set a fitter
        \param pf the fitter, the confidence interval of which will be estimated
      */
-    void set_fitter(fitter<Ty,Tx,Tp,Ts,Tstr>& pf)
+    void set_fitter(fitter<Tdata,Tp,Ts,Tstr>& pf)
     {
       param_pool.clear();
       p_fitter=&pf;
-      origin_data_set=dynamic_cast<const default_data_set<Ty,Tx>&>(pf.get_data_set());
+      origin_data_set=dynamic_cast<const default_data_set<Tdata>&>(pf.get_data_set());
       origin_param=pf.get_all_params();
     }
     
@@ -179,7 +181,7 @@ namespace opt_utilities
       current_data_set=default_data_set<Ty,Tx>();
       for(size_t i=0;i<origin_data_set.size();++i)
 	{
-	  data<Ty,Tx> d;
+	  Tdata d;
 	  d=origin_data_set.get_data(i);
 	  d.set_y(rand_norm(d.get_y(),(d.get_y_upper_err()+d.get_y_lower_err())/2.));
 	  current_data_set.add_data(d);

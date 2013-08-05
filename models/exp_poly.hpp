@@ -12,7 +12,7 @@ namespace opt_utilities
 {
   template <typename T>
   class exp_poly
-    :public model<T,T,std::vector<T>,std::string>
+    :public model<data<T,T>,std::vector<T>,std::string>
   {
   private:
     const int Norder;

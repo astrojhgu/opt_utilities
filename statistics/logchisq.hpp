@@ -35,19 +35,22 @@ namespace opt_utilities
      \tparam Ts the type of the statistic
      \tparam Tstr the type of the string used
    */
-  template<typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
+  template<typename Tdata,typename Tp,typename Ts,typename Tstr>
   class logchisq
-    :public statistic<Ty,Tx,Tp,Ts,Tstr>
+    :public statistic<Tdata,Tp,Ts,Tstr>
   {
+  public:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   private:
     bool verb;
     int n;
     
     
-    statistic<Ty,Tx,Tp,Ts,Tstr>* do_clone()const
+    statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
     {
       // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new logchisq<Ty,Tx,Tp,Ts,Tstr>(*this);
+      return new logchisq<Tdata,Tp,Ts,Tstr>(*this);
     }
 
     const char* do_get_type_name()const
@@ -101,8 +104,8 @@ namespace opt_utilities
 #if 1
 
   template<>
-  class logchisq<double,double,std::vector<double>,double,std::string>
-    :public statistic<double,double,std::vector<double> ,double,std::string>
+  class logchisq<data<double,double>,std::vector<double>,double,std::string>
+    :public statistic<data<double,double>,std::vector<double> ,double,std::string>
   {
   public:
     typedef double Ty;
@@ -110,14 +113,15 @@ namespace opt_utilities
     typedef std::vector<double> Tp;
     typedef double Ts;
     typedef std::string Tstr;
+    typedef data<double,double> Tdata;
   private:
     bool verb;
     int n;
     
-    statistic<Ty,Tx,Tp,Ts,Tstr>* do_clone()const
+    statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
     {
       // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new logchisq<Ty,Tx,Tp,Ts,Tstr>(*this);
+      return new logchisq<Tdata,Tp,Ts,Tstr>(*this);
     }
 
     const char* do_get_type_name()const

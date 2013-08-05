@@ -20,10 +20,10 @@ namespace opt_utilities
 {
   template <typename T>
   class component
-    :public model<optvec<T>,optvec<T>,optvec<T>,std::string>
+    :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
   {
   private:
-    std::vector<model<optvec<T>,optvec<T>,optvec<T>,std::string>*> components;
+    std::vector<model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>*> components;
     std::vector<int> weight_num;
   private:
     component* do_clone()const
@@ -94,7 +94,7 @@ namespace opt_utilities
 
 
   public:
-    void add_component(const model<optvec<T>,optvec<T>,optvec<T>,std::string>& m,const T& w=0)
+    void add_component(const model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>& m,const T& w=0)
     {
       int morder=components.size();
       components.push_back(m.clone());

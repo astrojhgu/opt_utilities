@@ -16,11 +16,11 @@ namespace opt_utilities
 {
   template <typename T>
   class lin1d
-    :public model<T,T,std::vector<T>,std::string>
-    ,public pre_estimatable<T,T,std::vector<T>,std::string>
+    :public model<data<T,T>,std::vector<T>,std::string>
+    ,public pre_estimatable<data<T,T>,std::vector<T>,std::string>
   {
   private:
-    model<T,T,std::vector<T> >* do_clone()const
+    model<data<T,T>,std::vector<T> >* do_clone()const
     {
       return new lin1d<T>(*this);
     }

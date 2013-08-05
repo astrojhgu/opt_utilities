@@ -25,10 +25,13 @@ namespace opt_utilities
      \tparam Ts the type of the statistic
      \tparam Tstr the type of the string used
    */
-  template<typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
+  template<typename Tdata,typename Tp,typename Ts,typename Tstr>
   class cstat
-    :public statistic<Ty,Tx,Tp,Ts,Tstr>
+    :public statistic<Tdata,Tp,Ts,Tstr>
   {
+  public:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   private:
     bool verb;
     int n;
@@ -49,10 +52,10 @@ namespace opt_utilities
 
   public:
 
-    statistic<Ty,Tx,Tp,Ts,Tstr>* do_clone()const
+    statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
     {
       // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new cstat<Ty,Tx,Tp,Ts,Tstr>(*this);
+      return new cstat<Tdata,Tp,Ts,Tstr>(*this);
     }
 
     Ts do_eval(const Tp& p)
@@ -90,10 +93,13 @@ namespace opt_utilities
      \tparam Ts the type of the statistic
      \tparam Tstr the type of the string used
    */
-  template<typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
+  template<typename Tdata,typename Tp,typename Ts,typename Tstr>
   class cstat1
-    :public statistic<Ty,Tx,Tp,Ts,Tstr>
+    :public statistic<Tdata,Tp,Ts,Tstr>
   {
+  public:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   private:
     bool verb;
     int n;
@@ -114,10 +120,10 @@ namespace opt_utilities
 
   public:
 
-    statistic<Ty,Tx,Tp,Ts,Tstr>* do_clone()const
+    statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
     {
       // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new cstat1<Ty,Tx,Tp,Ts,Tstr>(*this);
+      return new cstat1<Tdata,Tp,Ts,Tstr>(*this);
     }
 
     Ts do_eval(const Tp& p)

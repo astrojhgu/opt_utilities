@@ -21,20 +21,20 @@ namespace opt_utilities
      \tparam Ty type of y
      \tparam Tx type of x
    */
-  template <typename Ty,typename Tx>
+  template <typename Tdata>
   class shared_table_data_set
-    :public data_set<Ty,Tx>
+    :public data_set<Tdata>
   {
     //  private:
   public:
-    std::vector<data<Ty,Tx> > data_vec;
+    std::vector<data<Tdata> > data_vec;
     
     /**
        Only returns a pointer to self
      */
-    data_set<Ty,Tx>* do_clone()const
+    data_set<Tdata>* do_clone()const
     {
-      return (data_set<Ty,Tx>*)(this);
+      return (data_set<Tdata>*)(this);
     }
 
     /**
@@ -45,12 +45,12 @@ namespace opt_utilities
     }
 
 
-    const data<Ty,Tx>& do_get_data(size_t i)const
+    const data<Tdata>& do_get_data(size_t i)const
     {
       return data_vec.at(i);
     }
 
-    void do_set_data(size_t i,const data<Ty,Tx>& d)
+    void do_set_data(size_t i,const data<Tdata>& d)
     {
       data_vec.at(i)=d;
     }
@@ -60,7 +60,7 @@ namespace opt_utilities
       return data_vec.size();
     }
   
-    void do_add_data(const data<Ty,Tx>& d)
+    void do_add_data(const data<Tdata>& d)
     {
       data_vec.push_back(d);
     }
@@ -70,7 +70,7 @@ namespace opt_utilities
       data_vec.clear();
     }
 
-    bool insert_data(int idx,const data<Ty,Tx>& d)
+    bool insert_data(int idx,const data<Tdata>& d)
     {
       if(idx<0||idx>data_vec.size())
 	{
@@ -80,7 +80,7 @@ namespace opt_utilities
       return true;
     }
 
-    bool insert_data(int idx,size_t n,const data<Ty,Tx>& d)
+    bool insert_data(int idx,size_t n,const data<Tdata>& d)
     {
       if(idx<0||idx>data_vec.size())
 	{
@@ -115,11 +115,11 @@ namespace opt_utilities
     shared_table_data_set()
     {}
     
-    shared_table_data_set(const shared_table_data_set<Ty,Tx>& rhs)
+    shared_table_data_set(const shared_table_data_set<Tdata>& rhs)
       :data_vec(rhs.data_vec)
     {}
 
-    shared_table_data_set(const data_set<Ty,Tx>& rhs)
+    shared_table_data_set(const data_set<Tdata>& rhs)
     {
       data_vec.resize(rhs.size());
       for(int i=0;i<data_vec.size();++i)
@@ -128,13 +128,13 @@ namespace opt_utilities
 	}
     }
 
-    shared_table_data_set& operator=(const shared_table_data_set<Ty,Tx>& rhs)
+    shared_table_data_set& operator=(const shared_table_data_set<Tdata>& rhs)
     {
       data_vec=rhs.data_vec;
       return *this;
     }
 
-    shared_table_data_set& operator=(const data_set<Ty,Tx>& rhs)
+    shared_table_data_set& operator=(const data_set<Tdata>& rhs)
     {
       data_vec.resize(rhs.size());
       for(int i=0;i<data_vec.size();++i)

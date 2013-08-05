@@ -44,9 +44,9 @@ namespace opt_utilities
   class dl_x_y_ye
   {
   private:
-    default_data_set<Ty,Tx> ds;
+    default_data_set<data<Ty,Tx> > ds;
   public:
-    data_set<Ty,Tx>& get_data_set()
+    data_set<data<Ty,Tx> >& get_data_set()
     {
       return ds;
     }
@@ -103,9 +103,9 @@ namespace opt_utilities
   class dl_x_xe_y_ye
   {
   private:
-    default_data_set<Ty,Tx> ds;
+    default_data_set<data<Ty,Tx> > ds;
   public:
-    data_set<Ty,Tx>& get_data_set()
+    data_set<data<Ty,Tx> >& get_data_set()
     {
       return ds;
     }
@@ -159,9 +159,9 @@ namespace opt_utilities
   {
   private:
   
-    default_data_set<Ty,Tx> ds;
+    default_data_set<data<Ty,Tx> > ds;
   public:
-    data_set<Ty,Tx>& get_data_set()
+    data_set<data<Ty,Tx> >& get_data_set()
     {
       return ds;
     }

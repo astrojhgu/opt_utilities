@@ -17,12 +17,12 @@ using namespace std;
 
 namespace opt_utilities
 {
-  std::map<std::string,model<double,double,std::vector<double>,std::string>* > model_map;
+  std::map<std::string,model<data<double,double>,std::vector<double>,std::string>* > model_map;
 
   std::list<std::string> get_model_name_list()
   {
     std::list<std::string> result;
-    for(std::map<std::string,model<double,double,std::vector<double>,std::string>* >::iterator i=model_map.begin();
+    for(std::map<std::string,model<data<double,double>,std::vector<double>,std::string>* >::iterator i=model_map.begin();
 	i!=model_map.end();++i)
       {
 	result.push_back(i->first);
@@ -33,7 +33,7 @@ namespace opt_utilities
   const char* get_model_name(int n)
   {
     int cnt=0;
-    for(std::map<std::string,model<double,double,std::vector<double>,std::string>* >::iterator i=model_map.begin();
+    for(std::map<std::string,model<data<double,double>,std::vector<double>,std::string>* >::iterator i=model_map.begin();
 	i!=model_map.end();++i)
       {
 	if(cnt++==n)
@@ -43,9 +43,9 @@ namespace opt_utilities
       }
   }
 
-model<double,double,std::vector<double>,std::string>& get_1dmodel_by_name(const char* name)
+  model<data<double,double>,std::vector<double>,std::string>& get_1dmodel_by_name(const char* name)
   {
-    std::map<std::string,model<double,double,std::vector<double>,std::string >* >::iterator iter;
+    std::map<std::string,model<data<double,double>,std::vector<double>,std::string >* >::iterator iter;
     iter=model_map.find(name);
     if(iter==model_map.end()||iter->second==0)
       {
@@ -88,7 +88,7 @@ model<double,double,std::vector<double>,std::string>& get_1dmodel_by_name(const 
     
     void release_model_map()
     {
-      for(std::map<std::string,model<double,double,std::vector<double>,std::string>* >::iterator i=model_map.begin();
+      for(std::map<std::string,model<data<double,double>,std::vector<double>,std::string>* >::iterator i=model_map.begin();
 	  i!=model_map.end();++i)
 	{
 	  delete i->second;

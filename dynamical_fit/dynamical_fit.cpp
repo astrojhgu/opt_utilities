@@ -22,8 +22,8 @@ int main(int argc,char* argv[])
       exit(-1);
     }
   ifstream cfg_file(argv[1]);
-  fitter<double,double,std::vector<double>,double,std::string> fit;
-  chisq<double,double,vector<double>,double,string> stat;
+  fitter<data<double,double>,std::vector<double>,double,std::string> fit;
+  chisq<data<double,double>,vector<double>,double,string> stat;
   stat.verbose(true);
   fit.set_opt_method(powell_method<double,vector<double> >());
   //
@@ -31,7 +31,7 @@ int main(int argc,char* argv[])
   std::string model_so_name;
   cfg_file>>model_so_name;
   cerr<<"loading model shared object "<<model_so_name<<endl;
-  fit.set_model(*load_model<double,double,vector<double>,string>(model_so_name.c_str()));
+  fit.set_model(*load_model<data<double,double>,vector<double>,string>(model_so_name.c_str()));
   
   string data_file_name;
   cfg_file>>data_file_name;

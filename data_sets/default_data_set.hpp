@@ -19,21 +19,24 @@ namespace opt_utilities
      \tparam Ty type of y
      \tparam Tx type of x
    */
-  template <typename Ty,typename Tx>
+  template <typename Tdata>
   class default_data_set
-    :public data_set<Ty,Tx>
+    :public data_set<Tdata>
   {
+  public:
+    typedef typename Tdata::Tx Tx;
+    typedef typename Tdata::Ty Ty;
     //  private:
   public:
-    std::vector<data<Ty,Tx> > data_vec;
+    std::vector<Tdata > data_vec;
     
-    data_set<Ty,Tx>* do_clone()const
+    data_set<Tdata>* do_clone()const
     {
-      return new default_data_set<Ty,Tx>(*this);
+      return new default_data_set<Tdata>(*this);
     }
 
 
-    const data<Ty,Tx>& do_get_data(size_t i)const
+    const Tdata& do_get_data(size_t i)const
     {
       return data_vec.at(i);
     }
@@ -43,7 +46,7 @@ namespace opt_utilities
       return data_vec.size();
     }
   
-    void do_add_data(const data<Ty,Tx>& d)
+    void do_add_data(const Tdata& d)
     {
       data_vec.push_back(d);
     }
@@ -57,11 +60,11 @@ namespace opt_utilities
     default_data_set()
     {}
     
-    default_data_set(const default_data_set<Ty,Tx>& rhs)
+    default_data_set(const default_data_set<Tdata>& rhs)
       :data_vec(rhs.data_vec)
     {}
 
-    default_data_set(const data_set<Ty,Tx>& rhs)
+    default_data_set(const data_set<Tdata>& rhs)
     {
       data_vec.resize(rhs.size());
       for(int i=0;i<data_vec.size();++i)
@@ -70,13 +73,13 @@ namespace opt_utilities
 	}
     }
 
-    default_data_set& operator=(const default_data_set<Ty,Tx>& rhs)
+    default_data_set& operator=(const default_data_set<Tdata>& rhs)
     {
       data_vec=rhs.data_vec;
       return *this;
     }
 
-    default_data_set& operator=(const data_set<Ty,Tx>& rhs)
+    default_data_set& operator=(const data_set<Tdata>& rhs)
     {
       data_vec.resize(rhs.size());
       for(int i=0;i<data_vec.size();++i)

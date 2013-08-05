@@ -7,15 +7,15 @@
 
 namespace opt_utilities
 {
-  template <typename Ty,typename Tx>
-  std::ostream& operator<<(std::ostream& os,const data<Ty,Tx>& d)
+  template <typename Tdata>
+  std::ostream& operator<<(std::ostream& os,const Tdata& d)
   {
     os<<d.get_x()<<"("<<-std::abs(d.get_x_lower_err())<<",+"<<std::abs(d.get_x_upper_err())<<") "<<d.get_y()<<"("<<-std::abs(d.get_y_lower_err())<<",+"<<std::abs(d.get_y_upper_err())<<") ";
     return os;
   }
   
-  template <typename Ty,typename Tx>
-  std::ostream& operator<<(std::ostream& os,const data_set<Ty,Tx>& ds)
+  template <typename Tdata>
+  std::ostream& operator<<(std::ostream& os,const data_set<Tdata>& ds)
   {
     os<<"data set with size of "<<ds.size()<<"\n"
       <<"[\n";
@@ -31,8 +31,8 @@ namespace opt_utilities
     return os;
   }
 
-  template<typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
-  std::ostream& operator<<(std::ostream& os,const fitter<Ty,Tx,Tp,Ts,Tstr>& f)
+  template<typename Tdata,typename Tp,typename Ts,typename Tstr>
+  std::ostream& operator<<(std::ostream& os,const fitter<Tdata,Tp,Ts,Tstr>& f)
   {
     os<<"Fitting session:\n";
     os<<"Model:";

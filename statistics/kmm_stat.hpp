@@ -28,7 +28,7 @@ namespace opt_utilities
    */
   template<typename T,typename Ts,typename Tstr>
   class kmm_stat
-    :public statistic<optvec<T>,optvec<T>,optvec<T>,Ts,Tstr>
+    :public statistic<data<optvec<T>,optvec<T> >,optvec<T>,Ts,Tstr>
   {
   private:
     bool verb;
@@ -50,7 +50,7 @@ namespace opt_utilities
 
   public:
 
-    statistic<optvec<T>,optvec<T>,optvec<T>,Ts,Tstr>* do_clone()const
+    statistic<data<optvec<T>,optvec<T> >,optvec<T>,Ts,Tstr>* do_clone()const
     {
       // return const_cast<statistic<Ty,Tx,Tp>*>(this);
       return new kmm_stat<T,Ts,Tstr>(*this);
@@ -61,7 +61,7 @@ namespace opt_utilities
       Ts result(0);
       
       kmm_component<T>* kmm=
-	dynamic_cast<kmm_component<T>* >(&const_cast<model<optvec<T>,optvec<T>,optvec<T>,std::string>&>(this->get_fitter().get_model()));
+	dynamic_cast<kmm_component<T>* >(&const_cast<model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>&>(this->get_fitter().get_model()));
       
       if(kmm==0)
 	{

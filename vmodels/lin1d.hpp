@@ -17,8 +17,8 @@ namespace opt_utilities
 {
   template <typename T>
   class lin1d
-    :public model<optvec<T>,optvec<T>,optvec<T>,std::string>
-    ,public pre_estimatable<optvec<T>,optvec<T>,optvec<T>,std::string>
+    :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
+    ,public pre_estimatable<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
   {
     typedef optvec<T> Tv;
   private:

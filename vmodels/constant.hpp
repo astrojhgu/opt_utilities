@@ -16,7 +16,7 @@ namespace opt_utilities
 {
   template <typename T>
   class constant
-    :public model<optvec<T>,optvec<T>,optvec<T>,std::string>
+    :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
   {
     typedef optvec<T> Tv;
   private:

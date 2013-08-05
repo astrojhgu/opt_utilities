@@ -22,7 +22,7 @@ int main(int argc,char* argv[])
       cerr<<"Usage:"<<argv[0]<<" <data file>"<<endl;
       return -1;
     }
-  fitter<double,double,vector<double>,double,std::string> f;
+  fitter<data<double,double>,vector<double>,double,std::string> f;
   f.set_model(nbeta1d<double>());
   f.set_opt_method(powell_method<double,vector<double> >());
   f.set_statistic(chisq<double,double,vector<double>,double,std::string>());
@@ -37,7 +37,7 @@ int main(int argc,char* argv[])
     {
       cout<<f.get_param_info(i).get_name()<<"="<<f.get_param_info(i).get_value()<<endl;
     }
-  bootstrap<double,double,vector<double>,double,std::string> bst;
+  bootstrap<data<double,double>,vector<double>,double,std::string> bst;
   bst.set_fitter(f);
   bst.sample(1000);
 }

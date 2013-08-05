@@ -15,14 +15,17 @@
 
 namespace opt_utilities
 {
-  template <typename Ty,typename Tx,typename Tp,typename Tstr>
+  template <typename Tdata,typename Tp,typename Tstr>
   class pow_model
-    :public model<Ty,Tx,Tp,Tstr>
+    :public model<Tdata,Tp,Tstr>
   {
+  public:
+    typedef typename Tdata::Ty Ty;
+    typedef typename Tdata::Tx Tx;
   private:
-    model<Ty,Tx,Tp,Tstr>* do_clone()const
+    model<Tdata,Tp,Tstr>* do_clone()const
     {
-      return new pow_model<Ty,Tx,Tp,Tstr>(*this);
+      return new pow_model<Tdata,Tp,Tstr>(*this);
     }
   private:
     pow_model()
@@ -34,11 +37,11 @@ namespace opt_utilities
       return "combine two models by power operation";
     }
   private:
-    model<Ty,Tx,Tp,Tstr>* pm1;
+    model<Tdata,Tp,Tstr>* pm1;
     typename element_type_trait<Tp>::element_type idx;
 
   public:
-    pow_model(const model<Ty,Tx,Tp,Tstr>& m1,
+    pow_model(const model<Tdata,Tp,Tstr>& m1,
 	      const typename element_type_trait<Tp>::element_type& index)
       :pm1(m1.clone()),idx(index)
     {
@@ -120,12 +123,12 @@ namespace opt_utilities
     }
   };
   
-  template <typename Ty,typename Tx,typename Tp,typename Tstr>
-  pow_model<Ty,Tx,Tp,Tstr> pow(const model<Ty,Tx,Tp,Tstr>& m1,
+  template <typename Tdata,typename Tp,typename Tstr>
+  pow_model<Tdata,Tp,Tstr> pow(const model<Tdata,Tp,Tstr>& m1,
 			       const typename element_type_trait<Tp>::
 			       element_type& idx)
   {
-    return pow_model<Ty,Tx,Tp,Tstr>(m1,idx);
+    return pow_model<Tdata,Tp,Tstr>(m1,idx);
   }
 }
 
