@@ -7,8 +7,8 @@
 
 namespace opt_utilities
 {
-  template <typename Tdata>
-  std::ostream& operator<<(std::ostream& os,const Tdata& d)
+  template <typename Ty,typename Tx>
+  std::ostream& operator<<(std::ostream& os,const data<Ty,Tx>& d)
   {
     os<<d.get_x()<<"("<<-std::abs(d.get_x_lower_err())<<",+"<<std::abs(d.get_x_upper_err())<<") "<<d.get_y()<<"("<<-std::abs(d.get_y_lower_err())<<",+"<<std::abs(d.get_y_upper_err())<<") ";
     return os;

@@ -178,7 +178,7 @@ namespace opt_utilities
 	{
 	  throw fitter_not_set();
 	}
-      current_data_set=default_data_set<Ty,Tx>();
+      current_data_set=default_data_set<Tdata>();
       for(size_t i=0;i<origin_data_set.size();++i)
 	{
 	  Tdata d;

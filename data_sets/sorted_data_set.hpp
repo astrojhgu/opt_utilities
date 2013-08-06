@@ -53,7 +53,7 @@ namespace opt_utilities
     void do_add_data(const Tdata& d)
     {
       typename std::vector<Tdata >::iterator p
-	=std::lower_bound(data_vec.begin(),data_vec.end(),d,comp_Tdata);
+	=std::lower_bound(data_vec.begin(),data_vec.end(),d,comp_data<Tdata>);
       //data_vec.push_back(d);
       data_vec.insert(p,d);
     }
@@ -82,7 +82,7 @@ namespace opt_utilities
       for(int i=0;i<rhs.size();++i)
 	{
 	  typename std::vector<Tdata >::iterator p
-	    =std::lower_bound(data_vec.begin(),data_vec.end(),rhs.get_data(i),comp_Tdata);
+	    =std::lower_bound(data_vec.begin(),data_vec.end(),rhs.get_data(i),comp_data<Tdata>);
 	  //data_vec.push_back(d);
 	  data_vec.insert(p,rhs.get_data(i));
 	}
@@ -94,7 +94,7 @@ namespace opt_utilities
       for(int i=0;i<rhs.size();++i)
 	{
 	  typename std::vector<Tdata >::iterator p
-	    =std::lower_bound(data_vec.begin(),data_vec.end(),rhs.get_data(i),comp_Tdata);
+	    =std::lower_bound(data_vec.begin(),data_vec.end(),rhs.get_data(i),comp_data<Tdata>);
 	  //data_vec.push_back(d);
 	  data_vec.insert(p,rhs.get_data(i));
 	}
