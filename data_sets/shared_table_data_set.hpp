@@ -27,7 +27,7 @@ namespace opt_utilities
   {
     //  private:
   public:
-    std::vector<data<Tdata> > data_vec;
+    std::vector<Tdata> data_vec;
     
     /**
        Only returns a pointer to self
@@ -45,12 +45,12 @@ namespace opt_utilities
     }
 
 
-    const data<Tdata>& do_get_data(size_t i)const
+    const Tdata& do_get_data(size_t i)const
     {
       return data_vec.at(i);
     }
 
-    void do_set_data(size_t i,const data<Tdata>& d)
+    void do_set_data(size_t i,const Tdata& d)
     {
       data_vec.at(i)=d;
     }
@@ -60,7 +60,7 @@ namespace opt_utilities
       return data_vec.size();
     }
   
-    void do_add_data(const data<Tdata>& d)
+    void do_add_data(const Tdata& d)
     {
       data_vec.push_back(d);
     }
@@ -70,7 +70,7 @@ namespace opt_utilities
       data_vec.clear();
     }
 
-    bool insert_data(int idx,const data<Tdata>& d)
+    bool insert_data(int idx,const Tdata& d)
     {
       if(idx<0||idx>data_vec.size())
 	{
@@ -80,7 +80,7 @@ namespace opt_utilities
       return true;
     }
 
-    bool insert_data(int idx,size_t n,const data<Tdata>& d)
+    bool insert_data(int idx,size_t n,const Tdata& d)
     {
       if(idx<0||idx>data_vec.size())
 	{

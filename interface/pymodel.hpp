@@ -147,7 +147,7 @@ namespace opt_utilities
 	{
 	  args.append(get_element(p,i));
 	}
-      return convert_from_object(pyfunc(convert_to_object(x),args),x);
+      return convert_from_object(pyfunc(convert_to_object(x),args),Ty());
     }
 
     const char* do_get_type_name()const
