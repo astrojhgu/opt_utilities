@@ -124,7 +124,7 @@ namespace opt_utilities
       data_vec.resize(rhs.size());
       for(int i=0;i<data_vec.size();++i)
 	{
-	  data_vec[i](rhs.get_data(i));
+	  data_vec[i]=(rhs.get_data(i));
 	}
     }
 
