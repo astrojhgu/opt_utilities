@@ -65,7 +65,7 @@ namespace opt_utilities
 	{
 	  //get_element(xt,i)+=x*get_element((pT)xi1,i);
 	  set_element(xt,i,
-		      get_element(xt,i)+x*get_element((pT)xi1,i));
+		      get_element(xt,i)+x*get_element(xi1,i));
 	  //get_element((pT)xi1,i);
 	}
       return const_cast<func_obj<rT,pT>&>(*pfoo).eval(xt);
