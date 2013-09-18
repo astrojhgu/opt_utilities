@@ -4,6 +4,7 @@
 #include <methods/powell/powell_method.hpp>
 #include <methods/lbfgs/lbfgs_method.hpp>
 //#include <methods/gsl_simplex/gsl_simplex.hpp>
+#include <methods/conjugate_gradient_hybrid/conjugate_gradient_hybrid.hpp>
 #include <vector>
 #include <iostream>
 using namespace opt_utilities;
@@ -153,9 +154,11 @@ int main()
   //  gsl_simplex<double,vector<double> > pm_simplex;
   powell_method<double,vector<double> > pm_powell;
   lbfgs_method<double,vector<double> > lbfgsm;
+  conjugate_gradient_hybrid<double,vector<double> > cgh;
   test_opt(foo1(),lbfgsm);
   test_opt(foo2(),lbfgsm);
   test_opt(foo3(),lbfgsm);
   test_opt(foo4(),pm_powell);
   test_opt(foo5(),pm_powell);
+  test_opt(foo1(),cgh);
 }
