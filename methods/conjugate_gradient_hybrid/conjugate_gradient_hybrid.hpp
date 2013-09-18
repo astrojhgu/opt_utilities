@@ -136,6 +136,7 @@ namespace opt_utilities
 	    {
 	      converge_count_cg=0;
 	    }
+	  std::cerr<<"converge_count="<<converge_count_cg<<std::endl;
 	    fp=func(p);
 	    xi=gradient(*p_fo,p);
 	    if(cg_on)
