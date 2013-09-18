@@ -118,6 +118,7 @@ namespace opt_utilities
 		}
 
 	    }
+	  std::cerr<<2.0*abs(fret-fp)<<"\t"<<ftol*(abs(fret)+fabs(fp)+EPS)<<std::endl;
 	  if(2.0*abs(fret-fp)<=ftol*(abs(fret)+fabs(fp)+EPS))
 	    {
 	      if(cg_on)
