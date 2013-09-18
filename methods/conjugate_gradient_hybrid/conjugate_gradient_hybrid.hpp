@@ -124,6 +124,7 @@ namespace opt_utilities
 		{
 		  cg_on=false;
 		  converge_count_cg++;
+		  std::cerr<<"converge_count="<<converge_count_cg<<std::endl;
 		}
 	      if(converge_count_cg>1)
 		{
