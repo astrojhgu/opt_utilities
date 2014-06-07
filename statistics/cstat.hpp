@@ -72,12 +72,12 @@ namespace opt_utilities
 	  n++;
 	  if(n%10==0)
 	    {
-	      cout<<"a:"<<result<<"\t";
+	      cerr<<"a:"<<result<<"\t";
 	      for(size_t i=0;i<get_size(p);++i)
 		{
-		  cout<<get_element(p,i)<<",";
+		  cerr<<get_element(p,i)<<",";
 		}
-	      cout<<endl;
+	      cerr<<endl;
 	    }
 	  
 	}
@@ -140,12 +140,12 @@ namespace opt_utilities
 	  n++;
 	  if(n%10==0)
 	    {
-	      cout<<"a:"<<result<<"\t";
+	      cerr<<"a:"<<result<<"\t";
 	      for(size_t i=0;i<get_size(p);++i)
 		{
-		  cout<<get_element(p,i)<<",";
+		  cerr<<get_element(p,i)<<",";
 		}
-	      cout<<endl;
+	      cerr<<endl;
 	    }
 	  
 	}
