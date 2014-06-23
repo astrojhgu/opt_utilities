@@ -22,7 +22,7 @@ namespace opt_utilities
       return new lin1d_estimater<T>(*this);
     }
 
-    void do_estimate(const data_set<T,T>& d,model<data<T,T>,std::vector<T>,std::string>& m)const
+    void do_estimate(const data_set<data<T,T> >& d,model<data<T,T>,std::vector<T>,std::string>& m)const
     {
       T n=d.size();
       T sy=0;
