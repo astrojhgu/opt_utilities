@@ -189,11 +189,13 @@ namespace opt_utilities
       p_fitter->load_data(current_data_set);
       p_fitter->set_param_value(origin_param);
       param_pool.push_back(p_fitter->fit());
+#if 0
       for(size_t i=0;i<(param_pool.back()).size();++i)
 	{
 	  cerr<<param_pool.back()[i]<<",";
 	}
       std::cerr<<std::endl;
+#endif
       return param_pool.back();
     }
     
