@@ -67,20 +67,6 @@ namespace opt_utilities
 	  result-=contract(this->get_data_set().get_data(i).get_y(),std::log(model_y),result);
 	}
 
-      if(verb)
-	{
-	  n++;
-	  if(n%10==0)
-	    {
-	      cout<<"a:"<<result<<"\t";
-	      for(size_t i=0;i<get_size(p);++i)
-		{
-		  cout<<get_element(p,i)<<",";
-		}
-	      cout<<endl;
-	    }
-	  
-	}
       return result;
     }
   };
@@ -135,20 +121,6 @@ namespace opt_utilities
 	  result-=contract1(this->get_data_set().get_data(i).get_y(),std::log(model_y),result);
 	}
 
-      if(verb)
-	{
-	  n++;
-	  if(n%10==0)
-	    {
-	      cout<<"a:"<<result<<"\t";
-	      for(size_t i=0;i<get_size(p);++i)
-		{
-		  cout<<get_element(p,i)<<",";
-		}
-	      cout<<endl;
-	    }
-	  
-	}
       return result;
     }
   };
