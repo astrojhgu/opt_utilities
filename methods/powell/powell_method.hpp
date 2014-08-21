@@ -117,7 +117,9 @@ namespace opt_utilities
 	  del=0.0;
 	  for(i=0;i<n;++i)
 	    {
+#ifdef OPT_USE_OMP
 #pragma omp parallel for 
+#endif
 	      for(j=0;j<n;++j)
 		{
 		  //get_element(xit,j)=xi[j][i];
@@ -140,7 +142,9 @@ namespace opt_utilities
 	      std::cerr<<"powell exceeding maximun iterations."<<std::endl;
 	      return;
 	    }
+#ifdef OPT_USE_OMP
 #pragma omp parallel for 
+#endif
 	  for(j=0;j<n;++j)
 	    {
 	      //get_element(ptt,j)=T(2.)*get_element(p,j)-get_element(pt,j);
@@ -158,7 +162,9 @@ namespace opt_utilities
 	      if(t<T(0.))
 		{
 		  linmin(p,xit,fret,*p_fo);
+#ifdef OPT_USE_OMP
 #pragma omp parallel for 
+#endif
 		  for(j=0;j<n;++j)
 		    {
 		      xi[j][ibig-1]=xi[j][n-1];
