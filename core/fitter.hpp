@@ -1510,6 +1510,15 @@ namespace opt_utilities
       //  current_param.resize(m.get_num_params());
     }
 
+    void clear_model()
+    {
+      if(p_model!=NULL_PTR)
+	{
+	  p_model->destroy();
+	}
+      p_model=NULL_PTR;
+    }
+
 
     /**
        set the statistic (e.g., chi square, least square c-statistic etc.)
@@ -1525,6 +1534,15 @@ namespace opt_utilities
       p_statistic=s.clone();
       //p_statistic=&s;
       p_statistic->set_fitter(*this);
+    }
+
+    void clear_statistic()
+    {
+      if(p_statistic!=NULL_PTR)
+	{
+	  p_statistic->destroy();
+	}
+      p_statistic=NULL_PTR;
     }
 
     /**
@@ -1579,6 +1597,14 @@ namespace opt_utilities
       load_data(da);
     }
 
+    void clear_data_set()
+    {
+      if(p_data_set!=NULL_PTR)
+	{
+	  p_data_set->destroy();
+	}
+      p_data_set=NULL_PTR;
+    }
   public:
     /**
        set the value of a parameter
@@ -1691,6 +1717,11 @@ namespace opt_utilities
     {
       //assert(p_optimizer!=NULL_PTR);
       optengine.set_opt_method(pm);
+    }
+
+    void clear_opt_method()
+    {
+      optengine.clear_opt_method();
     }
 
     /**

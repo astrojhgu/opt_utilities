@@ -461,6 +461,16 @@ namespace opt_utilities
 	}
     }
 
+    void clear_func_obj()
+    {
+      if(p_func_obj!=NULL_PTR)
+	{
+	  //delete p_func_obj;
+	  p_func_obj->destroy();
+	}
+      p_func_obj=NULL_PTR;
+    }
+
     /**
        set optimization method
        \param om optmization method
@@ -475,6 +485,16 @@ namespace opt_utilities
       
       p_opt_method=om.clone();
       p_opt_method->set_optimizer(*this);
+    }
+
+    void clear_opt_method()
+    {
+       if(p_opt_method!=NULL_PTR)
+	{
+	  //delete p_opt_method;
+	  p_opt_method->destroy();
+	}
+       p_opt_method=NULL_PTR;
     }
 
     /**
