@@ -10,6 +10,7 @@
 #include <core/fitter.hpp>
 #include <math/vector_operation.hpp>
 #include <iostream>
+#include <cmath>
 #include <cassert>
 
 
