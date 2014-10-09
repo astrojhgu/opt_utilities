@@ -40,6 +40,10 @@ namespace opt_utilities
     T do_eval(const T& x,const std::vector<T>& param)
     {
       T alpha=param[0];
+      if ( x < c)
+	{
+	  return 0;
+	}
       return alpha*std::pow(c,alpha)*std::pow(x,-alpha-1);
     }
     
