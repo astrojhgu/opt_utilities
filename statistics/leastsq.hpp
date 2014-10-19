@@ -31,6 +31,7 @@ namespace opt_utilities
   {
   private:
     bool verb;
+    bool limit_considered;
     int n;
     typedef typename Tdata::Ty Ty;
     typedef typename Tdata::Tx Tx;
@@ -45,21 +46,40 @@ namespace opt_utilities
     {
       return "least square statistic";
     }
-    
   public:
     void verbose(bool v)
     {
       verb=v;
     }
+
+  public:
+    void consider_limit()
+    {
+      limit_considered=true;
+    }
+    
+    void ignore_limit()
+    {
+      limit_considered=false;
+    }
   public:
     leastsq()
-      :verb(false)
+      :verb(false),limit_considered(false)
     {}
     
     
 
     Ts do_eval(const Tp& p)
     {
+      if(limit_considered)
+	{
+	  if(!this->get_fitter().get_model().meets_constraint(p))
+	    {
+	      return 1e99;
+	    }
+	}
+
+      
       Ts result(0);
       for(int i=(this->get_data_set()).size()-1;i>=0;--i)
 	{
@@ -93,6 +113,7 @@ namespace opt_utilities
   {
   private:
     bool verb;
+    bool limit_considered;
     int n;
     
     typedef optvec<T> Tx;
@@ -114,15 +135,34 @@ namespace opt_utilities
     {
       verb=v;
     }
+    
+    void consider_limit()
+    {
+      limit_considered=true;
+    }
+    
+    void ignore_limit()
+    {
+      limit_considered=false;
+    }
+
   public:
     leastsq()
-      :verb(false)
+      :verb(false),limit_considered(false)
     {}
     
     
 
     Ts do_eval(const Tp& p)
     {
+      if(limit_considered)
+	{
+	  if(!this->get_fitter().get_model().meets_constraint(p))
+	    {
+	      return 1e99;
+	    }
+	}
+      
       Ts result(0);
       for(int i=(this->get_data_set()).size()-1;i>=0;--i)
 	{

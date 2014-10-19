@@ -34,6 +34,7 @@ namespace opt_utilities
     typedef typename Tdata::Ty Ty;
   private:
     bool verb;
+    bool limit_considered;
     int n;
     
     
@@ -53,15 +54,34 @@ namespace opt_utilities
     {
       verb=v;
     }
+
+    void consider_limit()
+    {
+      limit_considered=true;
+    }
+    
+    void ignore_limit()
+    {
+      limit_considered=false;
+    }
+
   public:
     chisq()
-      :verb(false)
+      :verb(false),limit_considered(false)
     {}
     
     
 
     Ts do_eval(const Tp& p)
     {
+      if(limit_considered)
+	{
+	  if(!this->get_fitter().get_model().meets_constraint(p))
+	    {
+	      return 1e99;
+	    }
+	}
+      
       Ts result(0);
       for(int i=(this->get_data_set()).size()-1;i>=0;--i)
 	{
@@ -104,6 +124,7 @@ namespace opt_utilities
     typedef data<double,double> Tdata;
   private:
     bool verb;
+    bool limit_considered;
     int n;
     
     statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
@@ -121,15 +142,34 @@ namespace opt_utilities
     {
       verb=v;
     }
+
+    void consider_limit()
+    {
+      limit_considered=true;
+    }
+    
+    void ignore_limit()
+    {
+      limit_considered=false;
+    }
+
   public:
     chisq()
-      :verb(false)
+      :verb(false),limit_considered(false)
     {}
     
     
 
     Ty do_eval(const Tp& p)
     {
+      if(limit_considered)
+	{
+	  if(!this->get_fitter().get_model().meets_constraint(p))
+	    {
+	      return 1e99;
+	    }
+	}
+
       Ty result(0);
       for(int i=(this->get_data_set()).size()-1;i>=0;--i)
 	{
