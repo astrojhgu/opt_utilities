@@ -32,7 +32,7 @@ namespace opt_utilities
 	r=(bx-ax)*(fb-fc);
 	q=(bx-cx)*(fb-fa);
 	u=bx-T((bx-cx)*q-(bx-ax)*r)/
-	  T(T(2.)*sign(T(max(T(tabs(T(q-r))),T(TINY))),T(q-r)));
+	  T(T(2.)*sign(T(tmax(T(tabs(T(q-r))),T(TINY))),T(q-r)));
 	ulim=bx+GLIMIT*(cx-bx);
 	if((bx-u)*(u-cx)>0.)
 	  {

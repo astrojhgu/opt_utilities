@@ -48,9 +48,9 @@ namespace opt_utilities
   {
     return b>=0?T(a>=0?T(a):T(-a)):T(a>=0?T(-a):T(a));
   }
-  
+
   template <typename T>
-  T max(T a,T b)
+  T tmax(T a,T b)
   {
     return b>a?T(b):T(a);
   }
