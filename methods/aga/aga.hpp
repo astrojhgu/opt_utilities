@@ -57,6 +57,17 @@ namespace opt_utilities
   class aga_method
     :public opt_method<rT,pT>
   {
+  private:
+    typename element_type_trait<pT>::element_type max1(typename element_type_trait<pT>::element_type a,typename element_type_trait<pT>::element_type b)
+    {
+      return a>b?a:b;
+    }
+
+    typename element_type_trait<pT>::element_type min1(typename element_type_trait<pT>::element_type a,typename element_type_trait<pT>::element_type b)
+    {
+      return a<b?a:b;
+    }
+						      
   public:
     typedef pT array1d_type;
   private:
@@ -233,8 +244,8 @@ namespace opt_utilities
 		  ub[j]=p[j];
 		  lb[j]=p[j];
 		}
-	      ub[j]=std::max(ub[j],p[j]);
-	      lb[j]=std::min(lb[j],p[j]);
+	      ub[j]=max1(ub[j],p[j]);
+	      lb[j]=min1(lb[j],p[j]);
 	      
 	      set_element(p,j,
 			  get_element(p,j)+
@@ -267,8 +278,8 @@ namespace opt_utilities
 			       get_element(buffer[j],k))/2.);
 		  
 
-		  ub[k]=std::max(ub[k],samples[i*n2+j+n1].p[k]);
-		  lb[k]=std::min(lb[k],samples[i*n2+j+n1].p[k]);
+		  ub[k]=max1(ub[k],samples[i*n2+j+n1].p[k]);
+		  lb[k]=min1(lb[k],samples[i*n2+j+n1].p[k]);
 		}
 	    }
 	}
