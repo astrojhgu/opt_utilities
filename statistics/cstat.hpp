@@ -116,6 +116,11 @@ namespace opt_utilities
     Ts do_eval(const Tp& p)
     {
       Ts result(0);
+      if(!this->get_fitter().get_model().meets_constraint(p))
+	{
+	  //std::cout<<p[4]<<std::endl;
+	  return 1e99;
+	}
       for(int i=(this->get_data_set()).size()-1;i>=0;--i)
 	{
 	  Ty model_y=this->eval_model(this->get_data_set().get_data(i).get_x(),p);
