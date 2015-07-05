@@ -2,6 +2,7 @@
    \file bivariate_normal.hpp
    \brief bivariate normal distribution
    \author Junhua Gu
+   http://mathworld.wolfram.com/BivariateNormalDistribution.html
  */
 
 

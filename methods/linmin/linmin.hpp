@@ -74,7 +74,7 @@ namespace opt_utilities
       //return x;
     }
   };
-  
+
 
   template<typename rT,typename pT>
   void linmin(pT& p,pT& xi,rT& fret,func_obj<rT,pT>& func)
@@ -113,6 +113,7 @@ namespace opt_utilities
     //  delete xicom_p;
     //delete pcom_p;
   }
+
 }
 
 

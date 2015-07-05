@@ -1,21 +1,20 @@
-#ifndef MNBRAK_HPP
-#define MNBRAK_HPP 
+#ifndef FMNBRAK_HPP
+#define FMNBRAK_HPP 
 #define OPT_HEADER
-//#include "optimizer.hpp"
+
 #include "bas_util.hpp"
 namespace opt_utilities
 {
-
-  
-  template <typename T>
-  void mnbrak(T& ax,T& bx,T& cx,T& fa,T& fb,T& fc,func_obj<T,T>& func)
+  //functional style
+  template <typename T,typename fT>
+  void fmnbrak(T& ax,T& bx,T& cx,T& fa,T& fb,T& fc,const fT& func)
   {
     const T GOLD=1.618034;
     const T GLIMIT=100;
     const T TINY=std::numeric_limits<T>::epsilon();
     T ulim,u,r,q,fu;
-    fa=func.eval(ax);
-    fb=func.eval(bx);
+    fa=func(ax);
+    fb=func(bx);
     
     if(fb>fa)
       {
@@ -26,7 +25,7 @@ namespace opt_utilities
       }
 
     cx=bx+GOLD*(bx-ax);
-    fc=func.eval(cx);
+    fc=func(cx);
     while(fb>fc)
       {
 	r=(bx-ax)*(fb-fc);
@@ -36,7 +35,7 @@ namespace opt_utilities
 	ulim=bx+GLIMIT*(cx-bx);
 	if((bx-u)*(u-cx)>0.)
 	  {
-	    fu=func.eval(u);
+	    fu=func(u);
 	    if(fu<fc)
 	      {
 		ax=bx;
@@ -52,32 +51,31 @@ namespace opt_utilities
 		return;
 	      }
 	    u=cx+GOLD*(cx-bx);
-	    fu=func.eval(u);
+	    fu=func(u);
 	  }
 	else if((cx-u)*(u-ulim)>0.)
 	  {
-	    fu=func.eval(u);
+	    fu=func(u);
 	    if(fu<fc)
 	      {
 		shft3(bx,cx,u,T(cx+GOLD*(cx-bx)));
-		shft3(fb,fc,fu,func.eval(u));
+		shft3(fb,fc,fu,func(u));
 	      }
 	  }
 	else if((u-ulim)*(ulim-cx)>=0)
 	  {
 	    u=ulim;
-	    fu=func.eval(u);
+	    fu=func(u);
 	  }
 	else
 	  {
 	    u=cx+GOLD*(cx-bx);
-	    fu=func.eval(u);
+	    fu=func(u);
 	  }
 	shft3(ax,bx,cx,u);
 	shft3(fa,fb,fc,fu);
       }
   }
-
 
 }
 

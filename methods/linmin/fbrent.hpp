@@ -6,8 +6,9 @@
 //#include "optimizer.hpp"
 namespace opt_utilities
 {
-  template<typename T>
-  T brent(T ax,T bx,T cx,func_obj<T,T>& f,T tol,T& xmin)
+  //functional style
+  template<typename T,typename fT>
+  T fbrent(T ax,T bx,T cx,const fT& f,T tol,T& xmin)
   {
     const int ITMAX=100;
     const T CGOLD=0.3819660;
@@ -20,7 +21,7 @@ namespace opt_utilities
     a=(ax<cx?ax:cx);
     b=(ax>cx?ax:cx);
     x=w=v=bx;
-    fw=fv=fx=f.eval(x);
+    fw=fv=fx=f(x);
     for(iter=0;iter<ITMAX;++iter)
       {
 	xm=.5*(a+b);
@@ -63,7 +64,7 @@ namespace opt_utilities
 	    d=CGOLD*(e=(x>=xm?a-x:b-x));
 	  }
 	u=(tabs(d)>=tol1?x+d:x+sign(tol1,d));
-	fu=f.eval(u);
+	fu=f(u);
 	if(fu<=fx)
 	  {
 	    if(u>=x)
@@ -106,7 +107,6 @@ namespace opt_utilities
     return fx;
     
   }
-
 
 }
 
