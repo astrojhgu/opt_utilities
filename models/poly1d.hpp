@@ -10,7 +10,7 @@
 #define OPT_HEADER
 #include <core/fitter.hpp>
 #include <cmath>
-#include <sstream>
+#include <string>
 #include <cassert>
 
 namespace opt_utilities
@@ -35,9 +35,9 @@ namespace opt_utilities
       assert(n>=0);
       for(int i=0;i<=n;++i)
 	{
-	  std::ostringstream ostr;
-	  ostr<<"a"<<i;
-	  this->push_param_info(param_info<std::vector<T> >(ostr.str().c_str(),1));  
+	  //std::ostringstream ostr;
+	  //ostr<<"a"<<i;
+	  this->push_param_info(param_info<std::vector<T> >(std::string("a")+std::to_string(i),1));  
 	}
       
     }
@@ -62,14 +62,23 @@ namespace opt_utilities
   private:
     std::string do_get_information()const
     {
-      std::ostringstream ostr;
-      ostr<<n<<"-order polynorminal model\n";
+      //std::ostringstream ostr;
+      std::string str;
+      str+=std::to_string(n);
+      str+="-order polynorminal model\n";
       for(int i=0;i<n;++i)
 	{
-	  ostr<<"a"<<i<<"*x^"<<i<<"+";
+	  str+="a";
+	  str+=std::to_string(i);
+	  str+="*x^";
+	  str+=std::to_string(i);
+	  str+="+";
 	}
-      ostr<<"a"<<n<<"*x^"<<n;
-      return ostr.str();
+      str+="a";
+      str+=std::to_string(n);
+      str+="*x^";
+      str+=std::to_string(n);
+      return str;
     }
   };
 }

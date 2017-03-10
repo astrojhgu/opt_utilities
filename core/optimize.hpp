@@ -12,11 +12,6 @@
 
 namespace opt_utilities
 {
-#if __cplusplus<201103L
-#define NULL_PTR 0
-#else
-  const std::nullptr_t NULL_PTR=nullptr;
-#endif
   template <typename rT,typename pT,typename funcT>
   class fopt_method
   {
@@ -36,7 +31,7 @@ namespace opt_utilities
 
   
   template <typename rT,typename pT,typename funcT>
-  pT optimize(const funcT& func,const fopt_method<rT,pT,funcT>& om)
+  pT optimize(funcT&& func,const fopt_method<rT,pT,funcT>& om)
   {
     return om.optimize(func);
   }

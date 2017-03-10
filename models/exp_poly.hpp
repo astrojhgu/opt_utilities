@@ -1,6 +1,7 @@
 #include <iostream>
 #include <vector>
-#include <sstream>
+#include <string>
+//#include <sstream>
 using namespace std;
 #include <core/opt_traits.hpp>
 //#include <boost/python.hpp>
@@ -34,9 +35,10 @@ namespace opt_utilities
       this->push_param_info(param_info<std::vector<T> >("x0",0));
       for(int i=0;i<=Norder;++i)
 	{
-	  ostringstream oss;
-	  oss<<"p"<<i;
-	  this->push_param_info(param_info<std::vector<T> >(oss.str(),0));
+	  //ostringstream oss;
+	  //oss<<"p"<<i;
+	  
+	  this->push_param_info(param_info<std::vector<T> >(std::string("p")+std::to_string(i),0));
 	}
     }
     
