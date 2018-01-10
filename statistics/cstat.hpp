@@ -14,63 +14,65 @@
 #include <cassert>
 
 
-using std::cout;using std::endl;
+using std::cout;
+using std::endl;
 namespace opt_utilities
 {
 
-  /**
-     \brief c-statistic, max-likelihood method
-     \tparam Ty the return type of model
-     \tparam Tx the type of the self-var
-     \tparam Tp the type of model parameter
-     \tparam Ts the type of the statistic
-     \tparam Tstr the type of the string used
-   */
-  template<typename Tdata,typename Tp,typename Ts,typename Tstr>
-  class cstat
-    :public statistic<Tdata,Tp,Ts,Tstr>
-  {
-  public:
-    typedef typename Tdata::Ty Ty;
-    typedef typename Tdata::Tx Tx;
-  private:
-    bool verb;
-    int n;
-  public:
-    cstat()
-      :verb(true)
-    {}
-
-    void verbose(bool v)
+    /**
+       \brief c-statistic, max-likelihood method
+       \tparam Ty the return type of model
+       \tparam Tx the type of the self-var
+       \tparam Tp the type of model parameter
+       \tparam Ts the type of the statistic
+       \tparam Tstr the type of the string used
+     */
+    template <typename Tdata, typename Tp, typename Ts, typename Tstr>
+    class cstat : public statistic<Tdata, Tp, Ts, Tstr>
     {
-      verb=v;
-    }
+      public:
+        typedef typename Tdata::Ty Ty;
+        typedef typename Tdata::Tx Tx;
 
-    const char* do_get_type_name()const
-    {
-      return "maximum likelihood";
-    }
+      private:
+        bool verb;
+        int n;
 
-  public:
+      public:
+        cstat () : verb (true)
+        {
+        }
 
-    statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
-    {
-      // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new cstat<Tdata,Tp,Ts,Tstr>(*this);
-    }
+        void verbose (bool v)
+        {
+            verb = v;
+        }
 
-    Ts do_eval(const Tp& p)
-    {
-      Ts result(0);
-      for(int i=(this->get_data_set()).size()-1;i>=0;--i)
-	{
-	  Ty model_y=this->eval_model(this->get_data_set().get_data(i).get_x(),p);
-	  result-=contract(this->get_data_set().get_data(i).get_y(),std::log(model_y),result);
-	}
+        const char *do_get_type_name () const
+        {
+            return "maximum likelihood";
+        }
 
-      return result;
-    }
-  };
+      public:
+        statistic<Tdata, Tp, Ts, Tstr> *do_clone () const
+        {
+            // return const_cast<statistic<Ty,Tx,Tp>*>(this);
+            return new cstat<Tdata, Tp, Ts, Tstr> (*this);
+        }
+
+        Ts do_eval (const Tp &p)
+        {
+            Ts result (0);
+            for (int i = (this->get_data_set ()).size () - 1; i >= 0; --i)
+                {
+                    Ty model_y = this->eval_model (this->get_data_set ().get_data (i).get_x (), p);
+                    result -=
+                    contract (this->get_data_set ().get_data (i).get_y (), std::log (model_y), result);
+                }
+
+            return result;
+        }
+    };
 
     /**
      \brief c-statistic, max-likelihood method
@@ -80,59 +82,58 @@ namespace opt_utilities
      \tparam Ts the type of the statistic
      \tparam Tstr the type of the string used
    */
-  template<typename Tdata,typename Tp,typename Ts,typename Tstr>
-  class cstat1
-    :public statistic<Tdata,Tp,Ts,Tstr>
-  {
-  public:
-    typedef typename Tdata::Ty Ty;
-    typedef typename Tdata::Tx Tx;
-  private:
-    bool verb;
-    int n;
-  public:
-    cstat1()
-      :verb(true)
-    {}
-
-    void verbose(bool v)
+    template <typename Tdata, typename Tp, typename Ts, typename Tstr>
+    class cstat1 : public statistic<Tdata, Tp, Ts, Tstr>
     {
-      verb=v;
-    }
+      public:
+        typedef typename Tdata::Ty Ty;
+        typedef typename Tdata::Tx Tx;
 
-    const char* do_get_type_name()const
-    {
-      return "maximum likelihood";
-    }
+      private:
+        bool verb;
+        int n;
 
-  public:
+      public:
+        cstat1 () : verb (true)
+        {
+        }
 
-    statistic<Tdata,Tp,Ts,Tstr>* do_clone()const
-    {
-      // return const_cast<statistic<Ty,Tx,Tp>*>(this);
-      return new cstat1<Tdata,Tp,Ts,Tstr>(*this);
-    }
+        void verbose (bool v)
+        {
+            verb = v;
+        }
 
-    Ts do_eval(const Tp& p)
-    {
-      Ts result(0);
-      if(!this->get_fitter().get_model().meets_constraint(p))
-	{
-	  //std::cout<<p[4]<<std::endl;
-	  return 1e99;
-	}
-      for(int i=(this->get_data_set()).size()-1;i>=0;--i)
-	{
-	  Ty model_y=this->eval_model(this->get_data_set().get_data(i).get_x(),p);
-	  result-=contract1(this->get_data_set().get_data(i).get_y(),std::log(model_y),result);
-	}
+        const char *do_get_type_name () const
+        {
+            return "maximum likelihood";
+        }
 
-      return result;
-    }
-  };
+      public:
+        statistic<Tdata, Tp, Ts, Tstr> *do_clone () const
+        {
+            // return const_cast<statistic<Ty,Tx,Tp>*>(this);
+            return new cstat1<Tdata, Tp, Ts, Tstr> (*this);
+        }
+
+        Ts do_eval (const Tp &p)
+        {
+            Ts result (0);
+            if (!this->get_fitter ().get_model ().meets_constraint (p))
+                {
+                    // std::cout<<p[4]<<std::endl;
+                    return 1e99;
+                }
+            for (int i = (this->get_data_set ()).size () - 1; i >= 0; --i)
+                {
+                    Ty model_y = this->eval_model (this->get_data_set ().get_data (i).get_x (), p);
+                    result -=
+                    contract1 (this->get_data_set ().get_data (i).get_y (), std::log (model_y), result);
+                }
+
+            return result;
+        }
+    };
 }
 
 #endif
-//EOF
-
-
+// EOF

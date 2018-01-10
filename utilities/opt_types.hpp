@@ -18,28 +18,24 @@
 
 namespace opt_utilities
 {
-  
-  template <typename Ty,typename Tx,typename Tp,typename Ts,typename Tstr>
-  class opt_types
-  {
-  public:
-    typedef ::opt_utilities::fitter<data<Ty,Tx>,Tp,Ts,Tstr> fitter;
-    typedef ::opt_utilities::chisq<data<Ty,Tx>,Tp,Ts,Tstr> chisq;
-    typedef ::opt_utilities::leastsq<data<Ty,Tx>,Tp,Ts,Tstr> leastsq;
-    typedef ::opt_utilities::powell_method<Ty,Tp> powell_method;
-    typedef ::opt_utilities::model<data<Ty,Tx>,Tp,Tstr> model;
-    typedef ::opt_utilities::default_data_set<data<Ty,Tx> > data_set;
-    typedef ::opt_utilities::optimizer<Ty,Tp> optimizer;
-    typedef ::opt_utilities::func_obj<Ty,Tp> func_obj;
-    typedef ::opt_utilities::opt_method<Ty,Tp> opt_method;
-  };
 
-  typedef opt_types<double,double,std::vector<double>,double,std::string> dopt;
-  
+    template <typename Ty, typename Tx, typename Tp, typename Ts, typename Tstr> class opt_types
+    {
+      public:
+        typedef ::opt_utilities::fitter<data<Ty, Tx>, Tp, Ts, Tstr> fitter;
+        typedef ::opt_utilities::chisq<data<Ty, Tx>, Tp, Ts, Tstr> chisq;
+        typedef ::opt_utilities::leastsq<data<Ty, Tx>, Tp, Ts, Tstr> leastsq;
+        typedef ::opt_utilities::powell_method<Ty, Tp> powell_method;
+        typedef ::opt_utilities::model<data<Ty, Tx>, Tp, Tstr> model;
+        typedef ::opt_utilities::default_data_set<data<Ty, Tx>> data_set;
+        typedef ::opt_utilities::optimizer<Ty, Tp> optimizer;
+        typedef ::opt_utilities::func_obj<Ty, Tp> func_obj;
+        typedef ::opt_utilities::opt_method<Ty, Tp> opt_method;
+    };
+
+    typedef opt_types<double, double, std::vector<double>, double, std::string> dopt;
 }
 
 
-
-
 #endif
-//EOF
+// EOF

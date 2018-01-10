@@ -14,48 +14,47 @@
 
 namespace opt_utilities
 {
-  template <typename T>
-  class quad_pl
-    :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
-  {
-  private:
-    quad_pl* do_clone()const
+    template <typename T>
+    class quad_pl : public model<data<optvec<T>, optvec<T>>, optvec<T>, std::string>
     {
-      return new quad_pl<T>(*this);
-    }
+      private:
+        quad_pl *do_clone () const
+        {
+            return new quad_pl<T> (*this);
+        }
 
-    const char* do_get_type_name()const
-    {
-      return "quad power law";
-    }
-  public:
-    quad_pl()
-    {
-      this->push_param_info(param_info<optvec<T> >("norm",1));
-      this->push_param_info(param_info<optvec<T> >("gamma",1));
-      this->push_param_info(param_info<optvec<T> >("corr",1));
-    }
+        const char *do_get_type_name () const
+        {
+            return "quad power law";
+        }
 
-    optvec<T> do_eval(const optvec<T>& x,const optvec<T>& param)
-    {
-      T norm=get_element(param,0);
-      T gamma=get_element(param,1);
-      T corr=get_element(param,2);
-      return norm*pow(x,gamma)*exp(corr*log(x)*log(x));
-    }
+      public:
+        quad_pl ()
+        {
+            this->push_param_info (param_info<optvec<T>> ("norm", 1));
+            this->push_param_info (param_info<optvec<T>> ("gamma", 1));
+            this->push_param_info (param_info<optvec<T>> ("corr", 1));
+        }
 
-  private:
-    std::string do_get_information()const
-    {
+        optvec<T> do_eval (const optvec<T> &x, const optvec<T> &param)
+        {
+            T norm = get_element (param, 0);
+            T gamma = get_element (param, 1);
+            T corr = get_element (param, 2);
+            return norm * pow (x, gamma) * exp (corr * log (x) * log (x));
+        }
+
+      private:
+        std::string do_get_information () const
+        {
 #ifdef WITH_OPT_DOC
 #include <model_doc/quad_pl.info>
 #endif
-      return "";
-    }
-  };
+            return "";
+        }
+    };
 }
 
 
-
 #endif
-//EOF
+// EOF

@@ -14,50 +14,50 @@
 
 namespace opt_utilities
 {
-  template <typename T>
-  class constant
-    :public model<data<optvec<T>,optvec<T> >,optvec<T>,std::string>
-  {
-    typedef optvec<T> Tv;
-  private:
-    constant<T>* do_clone()const
+    template <typename T>
+    class constant : public model<data<optvec<T>, optvec<T>>, optvec<T>, std::string>
     {
-      return new constant<T>(*this);
-    }
-    const char* do_get_type_name()const
-    {
-      return "constant";
-    }
-  public:
-    constant()
-    {
-      this->push_param_info(param_info<Tv>("c",1));
-    }
+        typedef optvec<T> Tv;
 
-  public:
-    Tv do_eval(const Tv& x,const Tv& param)
-    {
-      //return x*param[0]+param[1];
-      Tv result(x.size());
-      for(int i=0;i<result.size();++i)
-	{
-	  result[i]=param[0];
-	}
-      return result;
-    }
+      private:
+        constant<T> *do_clone () const
+        {
+            return new constant<T> (*this);
+        }
+        const char *do_get_type_name () const
+        {
+            return "constant";
+        }
 
-  private:
-    std::string do_get_information()const
-    {
+      public:
+        constant ()
+        {
+            this->push_param_info (param_info<Tv> ("c", 1));
+        }
+
+      public:
+        Tv do_eval (const Tv &x, const Tv &param)
+        {
+            // return x*param[0]+param[1];
+            Tv result (x.size ());
+            for (int i = 0; i < result.size (); ++i)
+                {
+                    result[i] = param[0];
+                }
+            return result;
+        }
+
+      private:
+        std::string do_get_information () const
+        {
 #ifdef WITH_OPT_DOC
 #include <model_doc/constant.info>
 #endif
-      return "";
-    }
-  };
+            return "";
+        }
+    };
 }
 
 
-
 #endif
-//EOF
+// EOF
